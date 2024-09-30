@@ -1,0 +1,329 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.mailprocessor",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.2",
+      "toolsId": "cea0cb1d-6e5a-4a40-a209-67e408be0c70"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/mail-reader/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "mail processor appp-display": {
+          "semanticObject": "mail processor appp",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.126.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.mailprocessor.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.mailprocessor.view",
+        "controlAggregation": "masterPages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteHome",
+          "pattern": ":?query:",
+          "target": [
+            "TargetHome",
+            "TargetHomeDetail"
+          ]
+        },
+        {
+          "name": "RouteHomeDetail",
+          "pattern": "HomeDetail",
+          "target": [
+            "TargetHome",
+            "TargetHomeDetail"
+          ]
+        },
+        {
+          "name": "RouteOrgDetail",
+          "pattern": "OrgDetail",
+          "target": [
+            "TargetHome",
+            "TargetOrgDetail"
+          ]
+        },
+        {
+          "name": "RouteOrgRegister",
+          "pattern": "OrgRegister",
+          "target": [
+            "TargetHome",
+            "TargetOrgRegister"
+          ]
+        },
+        {
+          "name": "RouteEmailAccountConfiguration",
+          "pattern": "EmailConfig",
+          "target": [
+            "TargetHome",
+            "TargetEmailAccountConfiguration"
+          ]
+        },
+        {
+          "name": "RouteEmailReaderLog",
+          "pattern": "EmailReaderLog",
+          "target": [
+            "TargetHome",
+            "TargetEmailReaderLog"
+          ]
+        },
+        {
+          "name": "RouteManageOrgnization",
+          "pattern": "ManageOrgnization",
+          "target": [
+            "TargetHome",
+            "TargetManageOrgnization"
+          ]
+        },
+        {
+          "name": "RouteEmailProcessor",
+          "pattern": "EmailProcessor",
+          "target": [
+            "TargetHome",
+            "TargetEmailProcessor"
+          ]
+        },
+        {
+          "name": "RouteMailBox",
+          "pattern": "EmailInbox",
+          "target": [
+            "TargetHome",
+            "TargetMailBox"
+          ]
+        },
+        {
+          "name": "RouteConfiguredMail",
+          "pattern": "ConfiguredMail",
+          "target": [
+            "TargetHome",
+            "TargetConfiguredMail"
+          ]
+        },
+        {
+          "name": "RouteUserManagement",
+          "pattern": "UserManagement",
+          "target": [
+            "TargetHome",
+            "TargetUserManagement"
+          ]
+        },
+        {
+          "name": "RouteInvoiceApp",
+          "pattern": "InvoiceApp",
+          "target": [
+            "TargetHome",
+            "TargetInvoiceApp"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetHome": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Home",
+          "viewName": "Home"
+        },
+        "TargetHomeDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "HomeDetail",
+          "viewName": "HomeDetail",
+          "viewLevel": 2
+        },
+        "TargetOrgDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "OrgnizationManagement",
+          "viewName": "OrgnizationManagement",
+          "viewLevel": 2
+        },
+        "TargetOrgRegister": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "RegisterNewOrg",
+          "viewName": "RegisterNewOrg",
+          "viewLevel": 2
+        },
+        "TargetEmailAccountConfiguration": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "EmailAccountConfiguration",
+          "viewName": "EmailAccountConfiguration",
+          "viewLevel": 2
+        },
+        "TargetEmailReaderLog": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "EmailReaderLog",
+          "viewName": "EmailReaderLog",
+          "viewLevel": 2
+        },
+        "TargetManageOrgnization": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "ManageOrgnization",
+          "viewName": "ManageOrgnization",
+          "viewLevel": 2
+        },
+        "TargetEmailProcessor": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "MailProcessor",
+          "viewName": "MailProcessor",
+          "viewLevel": 2
+        },
+        "TargetMailBox": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "MailBox",
+          "viewName": "MailBox",
+          "viewLevel": 2
+        },
+        "TargetConfiguredMail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "ConfiguredMail",
+          "viewName": "ConfiguredMail",
+          "viewLevel": 2
+        },
+        "TargetUserManagement": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "UserManagement",
+          "viewName": "UserManagement",
+          "viewLevel": 2
+        },
+        "TargetInvoiceApp": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "clearControlAggregation": false,
+          "viewId": "InvoiceApp",
+          "viewName": "InvoiceApp",
+          "viewLevel": 2
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.mailprocessor.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "solve"
+  }
+}

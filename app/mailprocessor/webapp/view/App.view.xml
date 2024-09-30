@@ -1,0 +1,52 @@
+<mvc:View controllerName="com.mailprocessor.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:common="sap.ui.commons"
+    xmlns:layout="sap.ui.layout">
+     <Bar id="headerBar" class="header">
+            <!-- Logo on the left side -->
+            <contentLeft>
+            <!-- <Button id="_IDGenButton1"
+			
+			icon="sap-icon://menu2"
+            width="40px"
+			press=".onCollapseExpandPress" /> -->
+                <Image
+                    id="_IDGenImage1"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="100px"
+                    height="30px"
+                />
+            </contentLeft>
+
+            <!-- Title in the middle -->
+            <contentMiddle>
+                <Title
+                    id="_IDGenTitle1"
+                    level="H3"
+                    text="Incresol Mail Processor"
+                />
+            </contentMiddle>
+            <contentRight>
+                <Button id="_IDGenButton5" text="Logout" type="Emphasized" press="onLogoutPress"  visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }" />
+            </contentRight>
+        </Bar>
+        
+    <SplitApp id="app" mode="ShowHideMode"  class="split" >
+        <!-- Master View (Navigation) -->
+        <masterPages >
+             
+        </masterPages>
+        
+        <!-- Detail View (Main Content) -->
+        <detailPages>
+            <!-- <mvc:XMLView
+                id="detailView"
+                viewName="com.mailprocessor.controller.HomeDetail"
+                /> -->
+        </detailPages>
+    </SplitApp>
+</mvc:View>

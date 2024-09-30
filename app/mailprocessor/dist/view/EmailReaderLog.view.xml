@@ -1,0 +1,33 @@
+<mvc:View 
+ controllerName="com.mailprocessor.controller.EmailReaderLog"
+   xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m" >
+<Panel id="_IDGenPanel1"
+        height="auto"
+        width="98%"
+        class="sapUiTinyMargin"
+    >
+        <content>
+            <Title id="_IDGenTitle1"
+                text="Logs"
+                textAlign="Center"
+                level="H2"
+            />
+        </content>
+    </Panel>
+    
+   <GenericTile id="_IDGenGenericTile1" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="Success Log"
+		 press="onPressRegister" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent1" >
+			<ImageContent id="_IDGenImageContent1" src="sap-icon://explorer" />
+		</TileContent>
+	</GenericTile>
+    <GenericTile id="_IDGenGenericTile4" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="Error Log"
+		 press="press" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent4" >
+			<ImageContent id="_IDGenImageContent4" src="sap-icon://error" />
+		</TileContent>
+	</GenericTile>
+    
+</mvc:View>

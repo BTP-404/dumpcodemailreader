@@ -1,0 +1,53 @@
+<mvc:View xmlns:core="sap.ui.core"  
+          controllerName="com.mailprocessor.controller.ManageOrgnization"
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+>
+    <Panel id="panel" class="sapUiTinyMargin" headerText="Organization Management" width="98%">
+        <Table id="organizationTable" 
+              
+               headerText="Select Organization To Edit" 
+               width="100%" 
+               items="{/Organization}"
+               backgroundDesign="Solid"
+               >
+            <columns>
+                <Column visible="false">
+                    <Text text="ID" />
+                </Column>
+                <Column>
+                    <Text text="Organization Name" />
+                </Column>
+                <Column>
+                    <Text text="Organization Type" />
+                </Column>
+                <Column>
+                    <Text text="Email ID" />
+                </Column>
+                <Column>
+                    <Text text="Contact No" />
+                </Column>
+                <Column>
+                    <Text text="" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{ID}" />
+                        <Text text="{organizationName}" />
+                        <Text text="{organizationType}" />
+                        <Text text="{emailId}" />
+                        <Text text="{contactNo}" />
+                        <HBox justifyContent="End" alignItems="Center">
+                            <core:Icon src="sap-icon://navigation-right-arrow" 
+                                       press="onIconPress" 
+                                       tooltip="Navigate" 
+                                       class="sapUiTinyMarginEnd" />
+                        </HBox>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Panel>
+</mvc:View>

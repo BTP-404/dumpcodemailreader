@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.mailprocessor.controller.OrgnizationManagement",{onInit:function(){},onPressRegister:function(){this.getOwnerComponent().getRouter().navTo("RouteOrgRegister")},onPressManage:function(){this.getOwnerComponent().getRouter().navTo("RouteManageOrgnization")},onPressUser:function(){this.getOwnerComponent().getRouter().navTo("RouteUserManagement")}})});
+//# sourceMappingURL=OrgnizationManagement.controller.js.map

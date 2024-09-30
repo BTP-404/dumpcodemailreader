@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"> 
+    <Dialog id="OcrDialog" title="OCR Result">
+        <VBox class="dialog-content">
+            <HBox class="dialog-content-hbox">
+                <VBox id="ocrFilePreview" width="50%" class="file-preview-container" padding="1rem">
+                    <Text text="File Preview:" design="Bold"/>
+                    <!-- File preview content (PDF/Image/Text) will be injected here -->
+                    <Image id="filePreviewImage" visible="false" />
+                    <Text id="filePreviewText" visible="false" />
+                </VBox>
+                <VBox id="ocrOutput" width="50%" class="ocr-output-container" padding="2rem">
+                    <Text text="Extracted OCR Data:" design="Bold" />
+                    <Text id="ocrExtractedText" text="" />
+                </VBox>
+            </HBox>
+            <VBox id="ocrProgress" class="ocr-progress-container" visible="false" padding="1rem">
+                <Text text="OCR in progress..." />
+                <ProgressIndicator id="ocrProgressIndicator" percentValue="0" />
+            </VBox>
+            <VBox class="upload-container" padding="1rem">
+                <FileUploader 
+                    id="fileUploader" 
+                    name="myFileUpload" 
+                    width="100%" 
+                    placeholder="Choose a file..."
+                    change="onFileChange" />
+                <Button text="Start OCR" press="onStartOCR" enabled="false" id="startOcrButton" />
+            </VBox>
+        </VBox>
+        <endButton>
+            <Button text="Close" press="onCloseOCRDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

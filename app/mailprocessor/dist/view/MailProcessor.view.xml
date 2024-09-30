@@ -1,0 +1,143 @@
+<mvc:View xmlns:core="sap.ui.core"   
+          controllerName="com.mailprocessor.controller.MailProcessor"
+          xmlns:mvc="sap.ui.core.mvc" 
+          xmlns="sap.m"
+          xmlns:smartList="sap.ui.comp.smartlist">
+          
+    <Panel id="mainPanel1" class="sapUiTinyMargin" headerText="Mail Processor" width="98%" >
+    <!-- Filter Section -->
+        <VBox class="sapUiSmallMargin">
+            <!-- First Line: Search Field and Button -->
+            <HBox class="sapUiSmallMarginBottom">
+                <SearchField id="searchField1" placeholder="Search emails..." search="onSearch" width="300px" />
+            </HBox>
+
+            <HBox class="sapUiSmallMarginBottom">
+                <VBox>
+                    <Label text="From:" />
+                    <Input id="inputFrom1" placeholder="Enter sender" width="200px" />
+                </VBox>
+
+                <VBox class="sapUiSmallMarginBegin">
+                    <Label text="Date:" />
+                    <DatePicker id="inputDate1" placeholder="Enter date" width="200px" />
+                </VBox>
+
+                <VBox class="sapUiSmallMarginBegin">
+                    <Label text="Subject:" />
+                    <Input id="inputSubject1" placeholder="Enter subject" width="200px" />
+                </VBox>
+            </HBox>
+        </VBox>
+        <IconTabBar id="iconTabBar1" expanded="true" select="onTabSelect">
+            <items>
+                <IconTabFilter key="invoice" text="Invoice" icon="sap-icon://doc-attachment">
+                    <ScrollContainer height="250px" width="100%" vertical="true" focusable="true">
+                        <Table id="mailTable1" 
+                               items="{/EmailData}" 
+                               width="100%" 
+                               growing="true"
+                               mode="SingleSelectMaster"
+                               sticky="ColumnHeaders">
+                            <columns>
+                                <Column><Text text="From" /></Column>
+                                <Column><Text text="Subject" /></Column>
+                                <Column><Text text="Date" /></Column>
+                 
+                           
+                                <Column><Text text="Attachment" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{sender}" />
+                                        <Text text="{subject}" />
+                                        <Text text="{date}" />
+                            
+                              
+                                            <Button icon="sap-icon://attachment" press="onShowAttachments" />
+
+                                    
+                                            <Text text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}" />
+                                         
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+
+                <IconTabFilter key="support" text="Support" icon="sap-icon://customer-and-contacts">
+                    <ScrollContainer height="250px" width="100%" vertical="true" focusable="true">
+                        <Table id="mailTable2" 
+                               items="{/EmailData}" 
+                               width="100%" 
+                               growing="true"
+                               mode="SingleSelectMaster"
+                               sticky="ColumnHeaders">
+                            <columns>
+                                <Column><Text text="From" /></Column>
+                                <Column><Text text="Subject" /></Column>
+                                <Column><Text text="Date" /></Column>
+                     
+                                <Column><Text text="Attachment" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{sender}" />
+                                        <Text text="{subject}" />
+                                        <Text text="{date}" />
+                              
+                                  
+                                            <Button icon="sap-icon://attachment" press="onShowAttachments" />
+                                            <Text text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}" />
+                                         
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+
+                <IconTabFilter key="other" text="Other Mails" icon="sap-icon://email">
+                    <ScrollContainer height="250px" width="100%" vertical="true" focusable="true">
+                        <Table id="mailTable3" 
+                               items="{/EmailData}" 
+                               width="100%" 
+                               growing="true"
+                               mode="SingleSelectMaster"
+                               sticky="ColumnHeaders">
+                            <columns>
+                                <Column><Text text="From" /></Column>
+                                <Column><Text text="Subject" /></Column>
+                                <Column><Text text="Date" /></Column>
+                     
+                         
+                                <Column><Text text="Attachment" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{sender}" />
+                                        <Text text="{subject}" />
+                                        <Text text="{date}" />
+          
+                                     
+                                            <Button icon="sap-icon://attachment" press="onShowAttachments" />
+
+                                           
+                                            <Text text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}" />
+                                         
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+
+            </items>
+        </IconTabBar>
+    </Panel>
+
+</mvc:View>

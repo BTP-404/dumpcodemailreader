@@ -1,0 +1,1 @@
+{"version":3,"file":"EmailReaderLog.controller.js","names":["sap","ui","define","Controller","extend","onInit"],"sources":["EmailReaderLog-dbg.controller.js"],"mappings":"AAAAA,IAAIC,GAAGC,OACH,CACI,8BAEJ,SAASC,GACP,aAEA,OAAOA,EAAWC,OAAO,8CAA+C,CACtEC,OAAQ,WACR,GAEJ","ignoreList":[]}

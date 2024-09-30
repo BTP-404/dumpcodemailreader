@@ -1,0 +1,79 @@
+<mvc:View 
+    controllerName="com.mailprocessor.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true"
+>
+    <tnt:NavigationList id="navList">
+        <!-- Home Item -->
+        <tnt:NavigationListItem
+            id="navHome"
+            text="Home"
+            icon="sap-icon://home"
+            key="home"
+            select="onHomeSelect"
+            visible="{= ${userModel>/userType} === '' }" 
+        />
+
+        <!-- Email Accounts Configuration (Admin Only) -->
+        <tnt:NavigationListItem
+            id="navEmailAccountsConfig"
+            text="Email Accounts Configuration"
+            icon="sap-icon://customer-and-contacts"
+            key="emailAccountsConfig"
+            select="onEmailConfigSelect"
+            visible="{= ${userModel>/userType} === 'Admin' }" 
+        />
+
+        <!-- Email Reader (Visible to both Admin and User) -->
+        <tnt:NavigationListItem
+            id="navEmailReader"
+            text="Email Reader"
+            icon="sap-icon://email"
+            key="emailReader"
+            select="onEmailReaderPress"
+            visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }"
+        >
+            <!-- Sub-item: Email Reader Logs -->
+            <tnt:NavigationListItem
+                id="navEmailReaderLogs"
+                text="Email Reader Logs"
+                icon="sap-icon://inspect"
+                key="emailReaderLogs"
+                select="onEmailReaderLog"
+                visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }" 
+            />
+
+            <!-- Sub-item: Mail Box -->
+            <tnt:NavigationListItem
+                id="navMailBox"
+                text="Mail Box"
+                icon="sap-icon://email-read"
+                key="mailBox"
+                select="onMailBox"
+                visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }" 
+            />
+
+            <!-- Sub-item: Mail Processor -->
+            <tnt:NavigationListItem
+                id="navMailProcessor"
+                text="Mail Processor"
+                icon="sap-icon://process"
+                key="mailProcessor"
+                select="onEmailProcessor"
+                visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }" 
+            />
+        </tnt:NavigationListItem>
+
+        <!-- Invoice App -->
+        <tnt:NavigationListItem
+            id="navInvoiceApp"
+            text="Invoice App"
+            icon="sap-icon://receipt"
+            key="invoiceApp"
+            select="onInvoiceApp"
+            visible="{= ${userModel>/userType} === 'Admin' || ${userModel>/userType} === 'User' }" 
+        />
+    </tnt:NavigationList>
+</mvc:View>

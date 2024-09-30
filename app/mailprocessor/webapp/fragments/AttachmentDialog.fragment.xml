@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="attachmentDialog" title="Attachments" class="sapUiResponsivePadding" draggable="true" resizable="true">
+        <content>
+            <VBox>
+                <Table id="attachmentTable" items="{/attachments}">
+                    <columns>
+                        <Column>
+                            <Text text="File Name" />
+                        </Column>
+                        <Column>
+                            <Text text="File Type" />
+                        </Column>
+                        <Column>
+                            <Text text="Preview" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{fileName}" />
+                                <Text text="{fileType}" />
+                                <HBox >
+                                <!-- New column with icon and press event for previewing the file -->
+                                <Button  icon="sap-icon://show" press="onPreviewAttachment" tooltip="Preview file" />
+                                 <Button  text="Proceed with OCR" icon="sap-icon://accounting-document-verification" press="onProceedWithOcr" class="sapUiTinyMarginBegin" />
+                                 </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <!-- This container is for file preview -->
+              
+            </VBox>
+        </content>
+        <endButton>
+            <Button text="Close" press="onCloseAttachmentDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

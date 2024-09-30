@@ -1,0 +1,64 @@
+<mvc:View xmlns:core="sap.ui.core"   
+    controllerName="com.mailprocessor.controller.ConfiguredMail"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m"
+    xmlns:smartList="sap.ui.comp.smartlist">
+
+    <Panel id="panel11" class="sapUiTinyMargin" headerText="Configured Mails" width="98%">
+        <!-- Define the Table -->
+        <Table id="emailTable1" 
+            items="{/EmailConfiguration}" 
+            mode="SingleSelectMaster"  
+            selectionChange="onSelectionChange"
+            width="100%">
+            <!-- Define Columns -->
+            <columns>
+             <Column>
+                    <Text text="Name" />
+                </Column>
+                <Column>
+                    <Text text="Email" />
+                </Column>
+                 <Column visible="false">
+                    <Text text="Password" />
+                </Column>
+                 <Column visible="false">
+                    <Text text="Protocol" />
+                </Column>
+                <Column>
+                    <Text text="Host Name" />
+                </Column>
+                <Column>
+                    <Text text="Port" />
+                </Column>
+                <Column>
+                    <Text text="Keywords" />
+                </Column>
+                <Column>
+                    <Text text="Connection Security" />
+                </Column>
+                <Column>
+                    <Text text="Polling Frequency" />
+                </Column>
+            </columns>
+
+            <!-- Define List Item Template -->
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{fullName}" />
+                        <Text text="{emailId}" />
+                        <Text text="{password}" />
+                        <Text text="{protocol }" />
+                        <Text text="{hostName}" />
+                        <Text text="{port}" />
+                        <!-- Use a formatter to format keywords array -->
+                        <Text text="{path: 'keywords', formatter: '.formatKeywords'}" />
+                        <Text text="{connectionSecurity}" />
+                        <Text text="{pollingFrequency}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Panel>
+</mvc:View>

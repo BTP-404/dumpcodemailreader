@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+    xmlns:cards="sap.f.cards"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Popover
+        id="myPopover"
+		title="Sign In as"
+        class="sapUiResponsivePadding sapUiResponsivePadding"
+        placement="Top"
+    >
+        <Button text="User" press="onUserPress" />
+         <Button text="Admin" press="onAdminPress"/>
+    </Popover>
+</core:FragmentDefinition>

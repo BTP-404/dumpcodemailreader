@@ -1,0 +1,47 @@
+<mvc:View
+    controllerName="com.mailprocessor.controller.OrgnizationManagement"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+   
+>
+ <Panel id="_IDGenPanel1"
+        height="auto"
+        width="98%"
+        class="sapUiTinyMargin"
+    >
+        <content>
+            <Title id="_IDGenTitle1"
+                text="Organization Management"
+                textAlign="Center"
+                level="H2"
+            />
+        </content>
+    </Panel>
+    
+   <GenericTile id="_IDGenGenericTile1" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="Register New Organization"
+		 press="onPressRegister" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent1" >
+			<ImageContent id="_IDGenImageContent1" src="sap-icon://customer" />
+		</TileContent>
+	</GenericTile>
+    <!-- <GenericTile id="_IDGenGenericTile4" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="Sign In"
+		 press="press" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent4" >
+			<ImageContent id="_IDGenImageContent4" src="sap-icon://log" />
+		</TileContent>
+	</GenericTile> -->
+    <GenericTile id="_IDGenGenericTile2" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="Manage Organization"
+		 press="onPressManage" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent2" >
+			<ImageContent id="_IDGenImageContent2" src="sap-icon://edit" />
+		</TileContent>
+	</GenericTile>
+    <GenericTile id="_IDGenGenericTile3" class="sapUiLargeMarginBegin sapUiLargeMarginTop tileLayout" header="User Management and Security"
+		 press="onPressUser" frameType= "OneByOne">
+		<TileContent id="_IDGenTileContent3" >
+			<ImageContent id="_IDGenImageContent3" src="sap-icon://private" />
+		</TileContent>
+	</GenericTile>
+    
+</mvc:View>

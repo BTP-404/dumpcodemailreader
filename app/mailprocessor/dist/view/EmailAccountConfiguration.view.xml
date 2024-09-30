@@ -1,0 +1,283 @@
+<mvc:View
+id="emailAccountConfigView"
+    controllerName="com.mailprocessor.controller.EmailAccountConfiguration"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+>
+    <Panel
+        id="_IDGenPanel1"
+        class="sapUiLargeMargin"
+        height="auto"
+        width="800px"
+        headerText="Email Configuration"
+    >
+        <HBox
+            id="_IDGenHBox2"
+            class="sapUiSmallMargin"
+        >
+            <VBox id="_IDGenVBox1">
+                <!-- Full Name -->
+                <Label
+                    id="_IDGenLabel1"
+                    text="Your Full Name"
+                    labelFor="fullNameInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="fullNameInput"
+                    placeholder="Enter your full name"
+                    width="15rem"
+                />
+
+                <!-- Email Address -->
+                <Label
+                    id="_IDGenLabel2"
+                    text="Email Address"
+                    labelFor="emailInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="emailInput"
+                    placeholder="Enter your email address"
+                    width="15rem"
+                />
+
+                <!-- Password -->
+                <Label
+                    id="_IDGenLabel3"
+                    text="Password"
+                    labelFor="passwordInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="passwordInput"
+                    type="Password"
+                    placeholder="Enter your password"
+                    width="15rem"
+                />
+
+                <!-- Protocol DropDown -->
+                <Label
+                    id="_IDGenLabel4"
+                    text="Protocol"
+                    labelFor="protocolSelect"
+                    design="Bold"
+                    required="true"
+                />
+              <ComboBox
+                    id="protocolSelect"
+                    width="15rem"
+                >
+                    <core:Item
+                        id="_IDGenItem1"
+                        key="IMAP"
+                        text="IMAP"
+                    />
+                    <core:Item
+                        id="_IDGenItem2"
+                        key="POP3"
+                        text="POP3"
+                    />
+                </ComboBox>
+
+                <!-- Authentication Method -->
+                <Label
+                    id="_IDGenLabel5"
+                    text="Authentication Method"
+                    labelFor="authSelect"
+                    design="Bold"
+                    required="true"
+                />
+               <ComboBox
+                    id="authSelect"
+                    width="15rem"
+                >
+                    <core:Item
+                        id="_IDGenItem31"
+                        key="Normal Password"
+                        text="Normal Password"
+                    />
+                    <core:Item
+                        id="_IDGenItem41"
+                        key="Encrypted Password"
+                        text="Encrypted Password"
+                    />
+                    <core:Item
+                        id="_IDGenItem51"
+                        key="Kerberos/GSSAPI"
+                        text="Kerberos / GSSAPI"
+                    />
+                    <core:Item
+                        id="_IDGenItem61"
+                        key="NTLM"
+                        text="NTLM"
+                    />
+                </ComboBox>
+            </VBox>
+            <VBox
+                id="_IDGenVBox2"
+                class="sapUiSmallMarginBegin"
+            >
+
+            <!-- HostName -->
+                <Label
+                    id="_IDGenLabel9"
+                    text="HostName"
+                    labelFor="hostnameInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="hostnameInput"
+                    placeholder="Enter hostname"
+                    width="15rem"
+                />
+
+                <!-- Port -->
+                <Label
+                    id="_IDGenLabel6"
+                    text="Port"
+                    labelFor="portInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="portInput"
+                    placeholder="Enter port"
+                    width="15rem"
+                    type="Number"
+                />
+
+                <!-- Connection Security DropDown -->
+                <Label
+                    id="_IDGenLabel7"
+                    text="Connection Security"
+                    labelFor="securitySelect"
+                    design="Bold"
+                    required="true"
+                />
+                <ComboBox
+                    id="securitySelect"
+                    width="15rem"
+                >
+                    <core:Item
+                        id="_IDGenItem3"
+                        key="AutoDetect"
+                        text="Auto detect"
+                    />
+                    <core:Item
+                        id="_IDGenItem4"
+                        key="None"
+                        text="None"
+                    />
+                    <core:Item
+                        id="_IDGenItem5"
+                        key="StartTLS"
+                        text="StartTLS"
+                    />
+                    <core:Item
+                        id="_IDGenItem6"
+                        key="SSL_TLS"
+                        text="SSL/TLS"
+                    />
+                </ComboBox>
+
+               
+                <!-- Polling Frequency -->
+                <Label
+                    id="_IDGenLabel10"
+                    text="Polling Frequency (minutes)"
+                    labelFor="pollingFrequencyInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="pollingFrequencyInput"
+                    placeholder="Enter polling frequency"
+                    width="15rem"
+                    type="Number"
+                />
+            </VBox>
+            <VBox
+                id="_IDGenVBox3"
+                class="sapUiSmallMarginBegin"
+            >
+                <!-- Keywords -->
+                <Label
+                    id="_IDGenLabel101"
+                    text="Keywords"
+                    labelFor="inputContainer"
+                    design="Bold"
+                />
+                <VBox
+                    id="inputContainer"
+                    width="15rem"
+                >
+                    <!-- More inputs will be added here dynamically -->
+                </VBox>  
+              <MultiComboBox id="multiComboBoxId"
+    width="15rem"
+    selectionChange="onSelectionChange"
+>
+    <core:Item
+        key="Bill"
+        text="Bill"
+    />
+    <core:Item
+        key="Invoice"
+        text="Invoice"
+    />
+    <core:Item
+        key="Support"
+        text="Support"
+    />
+</MultiComboBox>
+
+               
+                <Label
+                    id="markReadCheckbox"
+                    text="Mark The Email Read"
+                    labelFor="mySwitch"
+                    design="Bold"
+                />
+                <Switch
+                    id="mySwitch"
+                    type="AcceptReject"
+                    change="onSwitchChange"
+                />
+            </VBox>
+        </HBox>
+        <Panel id="_IDGenPanel2">
+            <HBox
+                id="_IDGenHBox3"
+                alignItems="End"
+            >
+                <!-- Submit Button -->
+                <Button
+                    id="_IDGenButton1"
+                    text="Submit"
+                    type="Success"
+                    class="sapUiTinyMarginEnd"
+                    press="onSubmit"
+                />
+
+                <!-- Spacing between buttons -->
+              
+
+                <!-- Additional Button -->
+                <Button
+                    id="_IDGenButton3"
+                    text="Check Previous Configuration Details"
+                    type="Attention"
+                    class="sapUiTinyMarginEnd"
+                    press="onPressCheckPrevious"
+                />
+            </HBox>
+        </Panel>
+    </Panel>
+</mvc:View>

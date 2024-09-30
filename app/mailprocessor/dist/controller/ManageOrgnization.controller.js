@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.mailprocessor.controller.ManageOrgnization",{onInit:function(){var e=this.getView().getModel()},onIconPress:function(){alert("Hello")}})});
+//# sourceMappingURL=ManageOrgnization.controller.js.map

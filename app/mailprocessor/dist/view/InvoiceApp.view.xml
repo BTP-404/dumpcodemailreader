@@ -1,0 +1,72 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"   
+          xmlns="sap.m" 
+          xmlns:core="sap.ui.core"
+          controllerName="com.mailprocessor.controller.InvoiceApp"
+          xmlns:smartList="sap.ui.comp.smartlist">
+
+    <Panel id="mainPanel" class="sapUiTinyMargin" headerText="Invoice App" width="98%">
+        <!-- Filter Section -->
+        <VBox class="sapUiSmallMargin">
+            <!-- First Line: Search Field and Button -->
+            <HBox class="sapUiSmallMarginBottom">
+                <SearchField id="searchField21" placeholder="Search emails..." search="onSearch" width="300px" />
+            </HBox>
+
+            <HBox class="sapUiSmallMarginBottom">
+                <VBox>
+                    <Label text="From:" />
+                    <Input id="inputFrom22" placeholder="Enter sender" width="200px" />
+                </VBox>
+
+                <VBox class="sapUiSmallMarginBegin">
+                    <Label text="Date:" />
+                    <DatePicker id="inputDate23" placeholder="Enter date" width="200px" />
+                </VBox>
+
+                <VBox class="sapUiSmallMarginBegin">
+                    <Label text="Subject:" />
+                    <Input id="inputSubject24" placeholder="Enter subject" width="200px" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <IconTabBar id="iconTabBar" expanded="true" select="onTabSelect">
+            <items>
+                <IconTabFilter key="invoice" text="Invoice" icon="sap-icon://doc-attachment">
+                    <ScrollContainer height="250px" width="100%" vertical="true" focusable="true">
+                        <Table id="mailTable11" 
+                               items="{/EmailData}" 
+                               width="100%" 
+                               growing="true"
+                               mode="SingleSelectMaster"
+                               sticky="ColumnHeaders">
+                            <columns>
+                                <Column><Text text="From" /></Column>
+                                <Column><Text text="Subject" /></Column>
+                                <Column><Text text="Date" /></Column>
+                                <Column><Text text="Attachment" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{sender}" />
+                                        <Text text="{subject}" />
+                                        <Text text="{date}" />
+                                        <HBox>
+                                            <Button icon="sap-icon://attachment" press="onShowAttachments" />
+                                            <VBox>
+                                                <Text text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}" />
+                                            </VBox>
+                                           
+                                            <!-- <Button text="Upload" press="onUpload" class="sapUiTinyMarginBegin" /> -->
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Panel>
+</mvc:View>

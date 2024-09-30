@@ -1,0 +1,35 @@
+<Dialog xmlns="sap.m" title="Success Logs">
+    <Table id="successLogTable" items="{ path: '/Logs'  }">
+        <columns>
+            <Column>
+                <Text text="Selected Mail" />
+            </Column>
+            <Column>
+                <Text text="Start Time" />
+            </Column>
+            <Column>
+                <Text text="End Time" />
+            </Column>
+            <Column>
+                <Text text="Time Taken" />
+            </Column>
+            <Column>
+                <Text text="No. of Emails Read" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{selectedMail}" />
+                    <Text text="{startTime}" />
+                    <Text text="{endTime}" />
+                    <Text text="{timeTaken}" />
+                    <Text text="{noOfEmailRead}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+    <endButton>
+        <Button text="Close" press="onClose" />
+    </endButton>
+</Dialog>

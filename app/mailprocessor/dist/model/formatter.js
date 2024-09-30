@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";return{isVisibleForUser:function(e,i){if(!e){return i==="home"}if(e==="Admin"){return i!=="home"}if(e==="User"){return i!=="home"&&i!=="emailAccountsConfig"}return false}}});
+//# sourceMappingURL=formatter.js.map

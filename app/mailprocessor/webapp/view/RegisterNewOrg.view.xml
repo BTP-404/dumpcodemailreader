@@ -1,0 +1,108 @@
+<mvc:View
+    controllerName="com.mailprocessor.controller.RegisterNewOrg"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:smartList="sap.ui.comp.smartlist"
+    xmlns:core="sap.ui.core"
+>
+    <Panel id="_IDGenPanel1" height="auto" width="98%" class="sapUiTinyMargin">
+        <content>
+            <Title id="_IDGenTitle1" text=" Register Organization " textAlign="Center" level="H2" />
+        </content>
+    </Panel>
+    <layout:Grid id="_IDGenGrid1" defaultSpan="L6 M6 S12">
+        <!-- First Panel -->
+        <Panel id="panel1" headerText="Create Organization" width="auto">
+            <content>
+                <Label id="_IDGenLabel1" text="Organization" labelFor="_IDGenInput1" design="Bold" />
+                <VBox id="_IDGenVBox1">
+                    <Input id="_IDGenInput1" type="Text" placeholder="Enter organization" required="true" width="20rem" />
+                </VBox>
+
+                <Label id="_IDGenLabel2" text="Organization Type" labelFor="organizationTypeSelect" design="Bold" />
+                <VBox id="_IDGenVBox2">
+                    <Select
+                        id="organizationTypeSelect"
+                        change="onOrganizationTypeChange"
+                        width="20rem"
+                        selectedKey="IT"
+                        
+                    >               
+                        <items>
+                            <core:Item id="_IDGenItem1" key="IT" text="IT" />
+                            <core:Item id="_IDGenItem2" key="Finance" text="Finance" />
+                            <core:Item id="_IDGenItem3" key="Healthcare" text="Healthcare" />
+                            <core:Item id="_IDGenItem4" key="Education" text="Education" />
+                            <core:Item id="_IDGenItem5" key="Manufacturing" text="Manufacturing" />
+                            <core:Item id="_IDGenItem6" key="Retail" text="Retail" />
+                            <core:Item id="_IDGenItem7" key="Other" text="Others" />
+                        </items>
+                    </Select>
+                    <!-- Hidden input for manual entry -->
+                    <Input
+                        id="manualEntryInput1"
+                        type="Text"
+                        placeholder="Enter organization type"
+                        width="20rem"
+                        visible="false"
+                    />
+                </VBox>
+
+                <Label id="_IDGenLabel3" text="Email Id" labelFor="_IDGenInput3" design="Bold" />
+                <VBox id="_IDGenVBox3">
+                    <Input id="_IDGenInput3" type="Email" placeholder="Enter email id" required="true" width="20rem" />
+                </VBox>
+
+                <Label id="_IDGenLabel4" text="Contact No" labelFor="_IDGenInput4" design="Bold" />
+                <VBox id="_IDGenVBox4">
+                    <Input id="_IDGenInput4" type="Number" placeholder="Enter contact no" required="true" width="20rem" />
+                </VBox>
+
+                <Label id="_IDGenLabel5" text="Address" labelFor="_IDGenInput5" design="Bold" />
+                <VBox id="_IDGenVBox5">
+                    <Input id="_IDGenInput5" type="Text" placeholder="Enter address" required="true" width="20rem" />
+                </VBox>
+
+              
+            </content>
+        </Panel>
+        <!-- Second Panel with Unique ID -->
+        <Panel id="panel2" headerText="Create Orgnization Administrator " width="auto">
+            <content>
+                <Label id="_IDGenLabel6" text="User Name" labelFor="_IDGenInput6" design="Bold" />
+                <VBox id="_IDGenVBox6">
+                    <Input id="_IDGenInput6" type="Text" placeholder="Enter user name" width="20rem" required="true"/>
+                </VBox>
+                <Label id="_IDGenLabel10" text="User mail id" labelFor="_IDGenInput10" design="Bold" />
+                <VBox id="_IDGenVBox10">
+                    <Input id="_IDGenInput10" type="Text" placeholder="Enter user mail id" width="20rem" required="true"/>
+                </VBox>
+                <Label id="_IDGenLabel9" text="User Id" labelFor="_IDGenInput9" design="Bold" />
+                <VBox id="_IDGenVBox9">
+                    <Input id="_IDGenInput9" type="Text" placeholder="create unique user id" width="20rem" required="true"/>
+                </VBox>
+                <Label id="_IDGenLabel7" text="Create Password" labelFor="_IDGenInput7" design="Bold" />
+                <VBox id="_IDGenVBox7">
+                    <Input id="_IDGenInput7" type="Password" placeholder="Create password" width="20rem" required="true"/>
+                </VBox>
+                <Label id="_IDGenLabel8" text="Confirm Password" labelFor="_IDGenInput8" design="Bold" />
+                <VBox id="_IDGenVBox8">
+                    <Input id="_IDGenInput8" type="Password" placeholder="Confirm password" width="20rem" required="true"/>
+                </VBox>
+                
+               
+
+              
+            </content>
+        </Panel>
+        
+          <FlexBox id="_IDGenFlexBox2" direction="Row" justifyContent="End" alignItems="End" class="sapUiTinyMarginEnd">
+                    <Button id="_IDGenButton3" text="Submit" type="Emphasized" press="onSubmitPress" />
+        </FlexBox>
+       
+    </layout:Grid>
+    
+
+</mvc:View>

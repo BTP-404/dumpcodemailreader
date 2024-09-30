@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.mailprocessor.controller.EmailReaderLog",{onInit:function(){}})});
+//# sourceMappingURL=EmailReaderLog.controller.js.map

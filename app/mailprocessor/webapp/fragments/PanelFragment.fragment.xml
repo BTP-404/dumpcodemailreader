@@ -1,0 +1,86 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+>
+    <m:Dialog
+        id="panelDialog1"
+        title="Previous Configuration Details"
+        stretch="true"
+        class="sapUiResponsivePadding sapUiContentPadding"
+        contentWidth="500px"
+        contentHeight="400px"
+    >
+        <!-- Editable Table with Two-Way Binding -->
+        <m:Table
+            id="emailTable"
+            items="{/EmailConfiguration}"
+            width="100%"
+        >
+            <m:columns>
+                <m:Column>
+                    <m:Text text="Administrator" />
+                </m:Column>
+                <m:Column>
+                    <m:Text text="Host Name" />
+                </m:Column>
+                <m:Column>
+                    <m:Text text="Port" />
+                </m:Column>
+                <m:Column>
+                    <m:Text text="Connection Security" />
+                </m:Column>
+                <m:Column>
+                    <m:Text text="Polling Frequency" />
+                </m:Column>
+            </m:columns>
+
+            <!-- Define List Item Template -->
+            <m:items>
+                <m:ColumnListItem>
+                    <m:cells>
+                        <!-- Data Binding in the New Order -->
+                        <m:Input value="{fullName}" />
+                        <m:Input value="{hostName}" />
+                        <m:Input value="{port}" width="auto"/>
+                        <m:Select
+                           
+                           
+                            value="{ConnectionSecurity}"
+                        >
+                            <core:Item
+                               
+                                key="AutoDetect"
+                                text="Auto detect"
+                            />
+                            <core:Item
+                              
+                                key="None"
+                                text="None"
+                            />
+                            <core:Item
+                              
+                                key="StartTLS"
+                                text="StartTLS"
+                            />
+                            <core:Item
+                               
+                                key="SSL_TLS"
+                                text="SSL/TLS"
+                            />
+                        </m:Select>
+                        <m:Input
+                            value="{pollingFrequency}"
+                            type="Number"
+                        />
+                    </m:cells>
+                </m:ColumnListItem>
+            </m:items>
+        </m:Table>
+
+        <m:Button
+            id="_IDGenButton6"
+            text="Close"
+            press="onClosePanelDialog"
+        />
+    </m:Dialog>
+</core:FragmentDefinition>

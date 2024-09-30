@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <m:Dialog id="termsDialog" title="Terms and Conditions" >
+        
+        <!-- Section for the Introduction -->
+        <FlexBox id="_IDGenFlexBox1" direction="Column" alignItems="Center" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il01" text="Welcome to Incresol Mail Processor." colorScheme="7" width="100%" />
+        </FlexBox>
+        
+        <FlexBox id="_IDGenFlexBox2" direction="Column" alignItems="Start">
+            <tnt:InfoLabel id="il02" text="By accessing or using our application, you agree to be bound by the following terms and conditions." colorScheme="1" width="100%" />
+        </FlexBox>
+        
+        <FlexBox id="_IDGenFlexBox3" direction="Column" alignItems="Start">
+            <tnt:InfoLabel id="il03" text="Please read them carefully. If you do not agree to these Terms, you must not use our App." colorScheme="1" width="100%" />
+        </FlexBox>
+
+        <!-- Sections for the Terms -->
+        <FlexBox id="_IDGenFlexBox4" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il04" text="1. Acceptance of Terms" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il05" text="By using our App, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy, which is incorporated by reference." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox5" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il06" text="2. Purpose of the App" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il07" text="Our App provides functionality to read and manage your email messages. We access your email solely for the purpose of Mail Automation." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox6" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il08" text="3. User Consent" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il09" text="By using our App, you grant us explicit permission to access and read your email messages. This consent is a prerequisite for utilizing the services provided by our App. You may withdraw your consent at any time." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox7" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il10" text="4. Data Collection and Use" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il11" text="- Scope of Data Access: We will access the content of your emails as required to deliver the functionality of the App. This includes reading, processing, and analyzing email messages." colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il12" text="- Data Usage: We use the data collected solely for the purpose of providing and improving our App. We do not use or share your email content for any other purposes without your explicit consent." colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il13" text="- Data Retention: We retain email data only for as long as necessary to provide the App's services. Data will be deleted upon your request or after the service is terminated." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox8" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il14" text="5. Privacy and Security" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il15" text="We are committed to protecting your privacy and ensuring the security of your data. We implement appropriate technical and organizational measures to safeguard your email content from unauthorized access, alteration, or disclosure." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox9" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il16" text="6. Third-Party Services" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il17" text="Our App may integrate with third-party services to provide its functionality. These third-party services have their own privacy policies and terms. We are not responsible for their practices or policies." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox10" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il18" text="7. User Responsibilities" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il19" text="You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox11" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il20" text="8. Limitation of Liability" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il21" text="To the fullest extent permitted by law, [Your Company Name] shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the App or the inability to use it." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox12" direction="Column" alignItems="Start" class="sapUiTinyMargin"> 
+            <tnt:InfoLabel id="il22" text="9. Changes to Terms" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il23" text="We reserve the right to modify these Terms at any time. Changes will be effective upon posting to the App or our website. Your continued use of the App after any changes indicates your acceptance of the revised Terms." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox13" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il24" text="10. Termination" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il25" text="We may suspend or terminate your access to the App if you breach these Terms or if we determine that it is necessary for security or compliance reasons. Upon termination, your rights to use the App will cease." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox14" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il26" text="11. Governing Law" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il27" text="These Terms are governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles." colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <FlexBox id="_IDGenFlexBox15" direction="Column" alignItems="Start" class="sapUiTinyMargin">
+            <tnt:InfoLabel id="il28" text="12. Contact Information" colorScheme="5" width="100%" />
+            <tnt:InfoLabel id="il29" text="If you have any questions or concerns about these Terms or our App, please contact us at:Incresol Software Services Private Limited" colorScheme="5" width="100%" />
+        </FlexBox>
+
+        <!-- Footer Buttons -->
+        <m:HBox id="_IDGenHBox1" justifyContent="End" class="sapUiTinyMargin">
+            <m:Button id="_IDGenButton11" type="Success" text="Accept" press="onAcceptTermsPress"/>
+            <m:Button id="_IDGenButton22" type="Negative" text="Cancel" press="onCancelTermsPress"/>
+        </m:HBox>
+    </m:Dialog>
+</core:FragmentDefinition>

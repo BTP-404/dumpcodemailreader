@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+ <Dialog id="previewDialog" title="File Preview" class="sapUiResponsivePadding" draggable="true" resizable="true">
+        <content>
+            <VBox>
+                <!-- HTML control to display the file content -->
+                <core:HTML id="filePreview" content="" />
+            </VBox>
+        </content>
+        <endButton>
+            <Button text="Close" press="onClosePreviewDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

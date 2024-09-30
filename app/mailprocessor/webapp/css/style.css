@@ -1,0 +1,40 @@
+.loginContainer {
+    height: auto;
+    width: 100%;
+    background: linear-gradient(135deg, #ffffff, #fdfdfd); /* Gradient theme color */
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.formVBox {
+    background-color: #3a4d5f; /* Slightly darker background for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    color: rgb(4, 4, 4);
+    width: 275px;
+    height: 500px;
+}
+
+.companyLogo {
+    width: 45rem;
+    height: 31rem;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.loginButton {
+   
+    
+    margin-top: 20px;
+    width: 100%;
+}
+
+.forgotPasswordLink {
+    margin-top: 10px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    width: 100%;
+}

@@ -1,0 +1,31 @@
+<Dialog xmlns="sap.m" title="Error Logs">
+    <Table id="errorLogTable" items="{ path: '/Logs' }">
+        <columns>
+            <Column>
+                <Text text="Selected Mail" />
+            </Column>
+            <Column>
+                <Text text="Start Time" />
+            </Column>
+            <Column>
+                <Text text="End Time" />
+            </Column>
+            <Column>
+                <Text text="Errors" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{selectedMail}" />
+                    <Text text="{startTime}" />
+                    <Text text="{endTime}" />
+                    <Text text="{errors}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+    <endButton>
+        <Button text="Close" press="onClose" />
+    </endButton>
+</Dialog>

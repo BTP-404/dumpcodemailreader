@@ -1,0 +1,50 @@
+{
+  "name": "MailReaderAutomation",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap-cloud-sdk/connectivity": "^3.21.0",
+    "@sap-cloud-sdk/http-client": "^3.21.0",
+    "@sap-cloud-sdk/resilience": "^3.21.0",
+    "@sap/cds": "^7",
+    "@sap/xssec": "^4.2.4",
+    "bcrypt": "^5.1.1",
+    "express": "^4",
+    "imap": "^0.8.19",
+    "mailparser": "^3.7.1",
+    "passport": "^0.7.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
+    "@sap/eslint-plugin-cds": "^3",
+    "@sap/ux-specification": "^1.120.15",
+    "eslint": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-mailreader": "cds watch --open mailreader/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-mailprocessor": "cds watch --open mailprocessor/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "sql": {
+      "native_hana_associations": false
+    },
+    "requires": {
+      "auth": "dummy",
+      "apiName": {
+        "kind": "rest",
+        "csrf": true,
+        "csrfInBatch": true,
+        "credentials": {
+          "destination": "oc2"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="com.mailprocessor.controller.UserManagement">
+    
+   
+        <Panel title="User Management" height="auto" width="98%" class="sapUiTinyMargin">
+            <!-- Header with icons for user actions -->
+           
+                <Toolbar>
+                    <Title text="User Management"/>
+                    <ToolbarSpacer />
+                    <Button
+                        icon="sap-icon://add"
+                        text="Add User"
+                        press="onAddUserPress" />
+                    <Button
+                        icon="sap-icon://delete"
+                        text="Delete User"
+                        press="onDeleteUserPress" />
+                    <Button
+                        icon="sap-icon://edit"
+                        text="Edit User"
+                        press="onEditUserPress" />
+                    <Button
+                        icon="sap-icon://role"
+                        text="Manage Roles"
+                        press="onManageRolesPress" />
+                </Toolbar>
+           
+            
+            <!-- Content area for user management (e.g., user table) -->
+            <content>
+                <Table
+                    id="userTable"
+                    headerText="Users"
+                    items="{/users}">
+                    <columns>
+                        <Column>
+                            <Text text="User ID"/>
+                        </Column>
+                        <Column>
+                            <Text text="Name"/>
+                        </Column>
+                        <Column>
+                            <Text text="Email"/>
+                        </Column>
+                        <!-- Add more columns as needed -->
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{userId}"/>
+                                <Text text="{name}"/>
+                                <Text text="{email}"/>
+                                <!-- Add more cells as needed -->
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </content>
+        </Panel>
+   
+    
+</mvc:View>

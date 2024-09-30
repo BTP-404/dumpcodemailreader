@@ -1,0 +1,41 @@
+<mvc:View xmlns:taccount="sap.suite.ui.commons.taccount" controllerName="com.mailprocessor.controller.HomeDetail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core" >
+    <Page id="homePage" title="" showNavButton="false">
+        <content>
+            <HBox id="_IDGenHBox4" class="loginContainer">
+                <!-- Company Logo -->
+                <Image id="_IDGenImage" src="./images/incresolimage.jpg" alt="Company Logo" class="companyLogo"/>
+
+                <!-- Login Form -->
+                <VBox id="_IDGenVBox" class="formVBox">
+                    <Label id="_IDGenLabel" text="Select user type" labelFor="userType" class="sapUiSmallMarginTop textcolor"/>
+                 	<ComboBox id="userType"
+						placeholder="Select"
+						change="onPopinLayoutChanged" 	valueState="Information">
+					
+							<core:Item  text="Admin"
+								key="Admin"/>
+							<core:Item  text="User"
+								key="User"/>
+					
+						
+					</ComboBox>
+
+                    <Label id="_IDGenLabel12" text="Username:" labelFor="username" class="sapUiSmallMarginTop textcolor"/>
+                    <Input id="username" placeholder="Enter username"
+                           showValueHelp="false" />
+
+                    <Label id="_IDGenLabel13" text="Password:" labelFor="password" class="sapUiSmallMarginTop textcolor"/>
+                    <Input id="password" type="Password" placeholder="Enter password"
+                           showValueHelp="false" />
+
+                    <!-- Login Button -->
+                    <Button id="_IDGenButton" text="Login" type="Emphasized" press="onLoginPress" class="loginButton "/>
+                    <Link id="_IDGenLink" text="Forgot password?" press="onForgotPasswordPress" class="forgotPasswordLink"/>
+                </VBox>
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>
