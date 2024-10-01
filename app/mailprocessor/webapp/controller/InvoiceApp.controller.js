@@ -22,7 +22,7 @@ sap.ui.define(
         //   operator: FilterOperator.EQ,
         //   value1: "invoice"
         // });
-        
+
         if (oBinding) {
           oBinding.filter([oFilter]);
         } else {
@@ -131,176 +131,166 @@ sap.ui.define(
         this._oPreviewDialog.open();
       },
 
-    //   onProceedWithOcr: function (oEvent) {
-    //     var that = this;
-    
-    //     try {
-    //         console.log("Proceed with OCR triggered");
-    
-    //         // Get the file details from the context
-    //         var oContext = oEvent.getSource().getBindingContext();
-    //         if (!oContext) {
-    //             console.error("No binding context found");
-    //             return;
-    //         }
-    
-    //         var sFileType = oContext.getProperty("fileType"); // e.g., "application/pdf", "image/jpeg"
-    //         var sFileBase64 = oContext.getProperty("file"); // Base64 encoded string
-    //         var sFileName = oContext.getProperty("fileName") || "document"; // Use a default name if fileName is not present
-    
-    //         if (!sFileType || !sFileBase64) {
-    //             console.error("File type or file content missing");
-    //             return;
-    //         }
-    
-    //         // Convert Base64 to binary
-    //         var byteCharacters = atob(sFileBase64); // Decode base64
-    //         var byteNumbers = new Array(byteCharacters.length);
-    //         for (var i = 0; i < byteCharacters.length; i++) {
-    //             byteNumbers[i] = byteCharacters.charCodeAt(i);
-    //         }
-    //         var byteArray = new Uint8Array(byteNumbers);
-    //         var blob = new Blob([byteArray], { type: sFileType }); // Create Blob object
-    
-    //         // Create FormData to send the file
-    //         var formData = new FormData();
-    //         formData.append("fileData", blob, sFileName + '.' + sFileType.split('/')[1]); // File data
-    //     formData.append("fileName", sFileName); // File name
-    //     formData.append("fileType", sFileType); // File type
-       
-    //     formData.append("status", "pending"); // Default status
-    //         console.log(formData)
-    //         // let oModel = this.getView().getModel();
+      //   onProceedWithOcr: function (oEvent) {
+      //     var that = this;
 
-    //         // // Create a new entry in the Test entity set
-      
+      //     try {
+      //         console.log("Proceed with OCR triggered");
 
-    //   // Create a plain object from formData
-    //   let oNewEntry = {
-    //     formData: blob // Directly attach the Blob instead of FormData
-    // };
-      
-    //   let oModel = this.getView().getModel();
-    //   // Log the new entry object
-    //   // console.log('New entry to be sent:', oNewEntry);
-      
-    //         // // Bind to the entity set and create the entry
-    //         let oBindList = oModel.bindList("/Test");
-    //        let submit= oBindList.create(oNewEntry);
-    //        submit.created().then(() => {
-    //           MessageToast.show("Submitted successfully");
-            
-    //       }).catch((error) => {
-    //           MessageToast.show(error);
-    //       });
-    
-    
-    //         // Define the URL for your API
-    //         // let _getbaseUrl = () => {
-    //         //     const appId = this.getOwnerComponent().getManifestEntry("/sap.app/id");
-    //         //     const appPath = appId.replaceAll(".", "/");
-    //         //     const appModulePath = jQuery.sap.getModulePath(appPath);
-    //         //     return appModulePath + "/integrationsuiteocr"; 
-    //         // }; 
-    //         // let dieurl = _getbaseUrl();
-    
-    //         // Make the POST request
-    //         // fetch('/Test', {
-    //         //     method: 'POST',
-    //         //     body: formData // Send the FormData
-    //         // })
-    //         // .then(response => {
-    //         //     if (!response.ok) {
-    //         //         throw new Error('Failed to submit document. Status: ' + response.status);
-    //         //     }
-    //         //     return response.json(); // Parse the JSON response
-    //         // })
-    //         // .then(data => {
-    //         //     if (data && data.id) {
-    //         //         console.log("OCR processing submitted successfully. Job ID:", data.id);
-    //         //         MessageToast.show("Document submitted successfully! Job ID: " + data.id);
-    //         //     } else {
-    //         //         console.error("No job ID returned. Response:", data);
-    //         //         MessageToast.show("Document submitted but no job ID returned.");
-    //         //     }
-    //         // })
-    //         // .catch(error => {
-    //         //     console.error("Error during OCR submission:", error);
-    //         //     MessageToast.show("Error during document submission.");
-    //         // });
-    
-    //     } catch (e) {
-    //         console.error("OCR process failed:", e);
-    //         MessageToast.show("An error occurred while processing the document.");
-    //     }
-    // }
-    onProceedWithOcr: function (oEvent) {
-      var that = this;
-  
-      try {
+      //         // Get the file details from the context
+      //         var oContext = oEvent.getSource().getBindingContext();
+      //         if (!oContext) {
+      //             console.error("No binding context found");
+      //             return;
+      //         }
+
+      //         var sFileType = oContext.getProperty("fileType"); // e.g., "application/pdf", "image/jpeg"
+      //         var sFileBase64 = oContext.getProperty("file"); // Base64 encoded string
+      //         var sFileName = oContext.getProperty("fileName") || "document"; // Use a default name if fileName is not present
+
+      //         if (!sFileType || !sFileBase64) {
+      //             console.error("File type or file content missing");
+      //             return;
+      //         }
+
+      //         // Convert Base64 to binary
+      //         var byteCharacters = atob(sFileBase64); // Decode base64
+      //         var byteNumbers = new Array(byteCharacters.length);
+      //         for (var i = 0; i < byteCharacters.length; i++) {
+      //             byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //         }
+      //         var byteArray = new Uint8Array(byteNumbers);
+      //         var blob = new Blob([byteArray], { type: sFileType }); // Create Blob object
+
+      //         // Create FormData to send the file
+      //         var formData = new FormData();
+      //         formData.append("fileData", blob, sFileName + '.' + sFileType.split('/')[1]); // File data
+      //     formData.append("fileName", sFileName); // File name
+      //     formData.append("fileType", sFileType); // File type
+
+      //     formData.append("status", "pending"); // Default status
+      //         console.log(formData)
+      //         // let oModel = this.getView().getModel();
+
+      //         // // Create a new entry in the Test entity set
+
+
+      //   // Create a plain object from formData
+      //   let oNewEntry = {
+      //     formData: blob // Directly attach the Blob instead of FormData
+      // };
+
+      //   let oModel = this.getView().getModel();
+      //   // Log the new entry object
+      //   // console.log('New entry to be sent:', oNewEntry);
+
+      //         // // Bind to the entity set and create the entry
+      //         let oBindList = oModel.bindList("/Test");
+      //        let submit= oBindList.create(oNewEntry);
+      //        submit.created().then(() => {
+      //           MessageToast.show("Submitted successfully");
+
+      //       }).catch((error) => {
+      //           MessageToast.show(error);
+      //       });
+
+
+      //         // Define the URL for your API
+      //         // let _getbaseUrl = () => {
+      //         //     const appId = this.getOwnerComponent().getManifestEntry("/sap.app/id");
+      //         //     const appPath = appId.replaceAll(".", "/");
+      //         //     const appModulePath = jQuery.sap.getModulePath(appPath);
+      //         //     return appModulePath + "/integrationsuiteocr"; 
+      //         // }; 
+      //         // let dieurl = _getbaseUrl();
+
+      //         // Make the POST request
+      //         // fetch('/Test', {
+      //         //     method: 'POST',
+      //         //     body: formData // Send the FormData
+      //         // })
+      //         // .then(response => {
+      //         //     if (!response.ok) {
+      //         //         throw new Error('Failed to submit document. Status: ' + response.status);
+      //         //     }
+      //         //     return response.json(); // Parse the JSON response
+      //         // })
+      //         // .then(data => {
+      //         //     if (data && data.id) {
+      //         //         console.log("OCR processing submitted successfully. Job ID:", data.id);
+      //         //         MessageToast.show("Document submitted successfully! Job ID: " + data.id);
+      //         //     } else {
+      //         //         console.error("No job ID returned. Response:", data);
+      //         //         MessageToast.show("Document submitted but no job ID returned.");
+      //         //     }
+      //         // })
+      //         // .catch(error => {
+      //         //     console.error("Error during OCR submission:", error);
+      //         //     MessageToast.show("Error during document submission.");
+      //         // });
+
+      //     } catch (e) {
+      //         console.error("OCR process failed:", e);
+      //         MessageToast.show("An error occurred while processing the document.");
+      //     }
+      // }
+      onProceedWithOcr: function (oEvent) {
+        var that = this;
+
+        try {
           console.log("Proceed with OCR triggered");
-  
+
           // Get the file details from the context
           var oContext = oEvent.getSource().getBindingContext();
           if (!oContext) {
-              console.error("No binding context found");
-              return;
+            console.error("No binding context found");
+            return;
           }
-  
+
           var sFileType = oContext.getProperty("fileType");
           var sFileBase64 = oContext.getProperty("file");
           var sFileName = oContext.getProperty("fileName") || "document";
 
 
-          console.log("sFileBase64=============",sFileBase64)
-  
-          if (!sFileType || !sFileBase64) {
-              console.error("File type or file content missing");
-              return;
-          }
-  
-          // Convert Base64 to binary
-        //   var byteCharacters = atob(sFileBase64);
-        //  //var byteCharacters = Buffery.from(sFileBase64,'Base64');
-        //  console.log("BYTECHARATER===>",byteCharacters)
-        //   var byteNumbers = new Uint8Array(byteCharacters.length);
-        //   for (var i = 0; i < byteCharacters.length; i++) {
-        //       byteNumbers[i] = byteCharacters.charCodeAt(i);
-        //   }
-  
-          // Convert to base64 string
-          // var binaryString = String.fromCharCode.apply(null, byteNumbers);
-          // var base64String = btoa(binaryString);
 
-  
+
+          if (!sFileType || !sFileBase64) {
+            console.error("File type or file content missing");
+            return;
+          }
+
+
+
           // Prepare the entry for the OData model
           let oNewEntry = {
-              formData: sFileBase64 // Send base64-encoded string
+            formData: sFileBase64,
+            fileType: sFileType,
+            fileName: sFileName
           };
-  
+
           let oModel = this.getView().getModel();
-  
+
           // Log the new entry object
           console.log('New entry to be sent:', oNewEntry);
-  
+
           // Bind to the entity set and create the entry
-          let oBindList = oModel.bindList("/Test");
+          let oBindList = oModel.bindList("/OCRProcess");
           let submit = oBindList.create(oNewEntry);
-  
+
           submit.created().then(() => {
-              MessageToast.show("Submitted successfully");
+            MessageToast.show("Submitted successfully");
           })
-          submit.catch((error) => {
+            .catch((error) => {
               MessageToast.show("Submission failed: " + error);
               console.error(error);
-          });
-  
-      } catch (error) {
+            });
+
+        } catch (error) {
           console.error('Error in onProceedWithOcr:', error);
+        }
       }
-  }
-  
- 
+
+
     });
   }
 );

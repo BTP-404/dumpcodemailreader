@@ -6,7 +6,7 @@ service MailReader {
     entity EmailConfiguration as projection on IC.EmailConfiguration;
     // entity Attachments        as projection on IC.Attachments;
 
-   
+
     entity SelectedMail {
         key useremail : String;
             password  : String;
@@ -18,7 +18,7 @@ service MailReader {
             markRead  : Boolean;
     }
 
-   
+
     entity EmailData {
         key ID              : UUID;
             sender          : String;
@@ -32,7 +32,7 @@ service MailReader {
                                   on attachments.emaildata = $self;
     }
 
-   
+
     entity Logs {
         key ID            : UUID;
             selectedMail  : String;
@@ -43,7 +43,7 @@ service MailReader {
             errors        : array of String;
     }
 
-   
+
     entity Attachments {
         key ID        : UUID;
             emaildata : Association to one EmailData; // Reference to the email using Id
@@ -53,10 +53,13 @@ service MailReader {
             size      : Integer;
             encoding  : String;
     }
-   entity Test {
-    key ID        : UUID;          // Unique identifier for the record
-    formData      : LargeString;        // Binary data for the uploaded file
-          
-}
+
+    entity OCRProcess {
+        key ID       : UUID; // Unique identifier for the record
+            formData : LargeString;
+            fileType : String;
+            fileName : String;
+
+    }
 
 }
