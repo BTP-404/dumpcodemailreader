@@ -17,11 +17,11 @@ sap.ui.define(
         var oBinding = oTable.getBinding("items");
 
         // Apply filter for 'subject' field to show only "invoice" emails
-        var oFilter = new Filter({
-          path: "subject",
-          operator: FilterOperator.EQ,
-          value1: "invoice"
-        });
+        // var oFilter = new Filter({
+        //   path: "subject",
+        //   operator: FilterOperator.EQ,
+        //   value1: "invoice"
+        // });
         
         if (oBinding) {
           oBinding.filter([oFilter]);
@@ -250,6 +250,9 @@ sap.ui.define(
           var sFileType = oContext.getProperty("fileType");
           var sFileBase64 = oContext.getProperty("file");
           var sFileName = oContext.getProperty("fileName") || "document";
+
+
+          console.log("sFileBase64=============",sFileBase64)
   
           if (!sFileType || !sFileBase64) {
               console.error("File type or file content missing");
@@ -257,19 +260,22 @@ sap.ui.define(
           }
   
           // Convert Base64 to binary
-          var byteCharacters = atob(sFileBase64);
-          var byteNumbers = new Uint8Array(byteCharacters.length);
-          for (var i = 0; i < byteCharacters.length; i++) {
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
-          }
+        //   var byteCharacters = atob(sFileBase64);
+        //  //var byteCharacters = Buffery.from(sFileBase64,'Base64');
+        //  console.log("BYTECHARATER===>",byteCharacters)
+        //   var byteNumbers = new Uint8Array(byteCharacters.length);
+        //   for (var i = 0; i < byteCharacters.length; i++) {
+        //       byteNumbers[i] = byteCharacters.charCodeAt(i);
+        //   }
   
           // Convert to base64 string
-          var binaryString = String.fromCharCode.apply(null, byteNumbers);
-          var base64String = btoa(binaryString);
+          // var binaryString = String.fromCharCode.apply(null, byteNumbers);
+          // var base64String = btoa(binaryString);
+
   
           // Prepare the entry for the OData model
           let oNewEntry = {
-              formData: base64String // Send base64-encoded string
+              formData: sFileBase64 // Send base64-encoded string
           };
   
           let oModel = this.getView().getModel();
@@ -283,7 +289,8 @@ sap.ui.define(
   
           submit.created().then(() => {
               MessageToast.show("Submitted successfully");
-          }).catch((error) => {
+          })
+          submit.catch((error) => {
               MessageToast.show("Submission failed: " + error);
               console.error(error);
           });

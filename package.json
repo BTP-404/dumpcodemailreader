@@ -8,12 +8,15 @@
   "dependencies": {
     "@cap-js/hana": "^1",
     "@sap-cloud-sdk/connectivity": "^3.21.0",
+    "@sap-cloud-sdk/core": "^1.54.2",
     "@sap-cloud-sdk/http-client": "^3.21.0",
     "@sap-cloud-sdk/resilience": "^3.21.0",
     "@sap/cds": "^7",
     "@sap/xssec": "^4.2.4",
+    "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "express": "^4",
+    "form-data": "^4.0.0",
     "imap": "^0.8.19",
     "mailparser": "^3.7.1",
     "passport": "^0.7.0",
@@ -39,8 +42,6 @@
       "auth": "dummy",
       "apiName": {
         "kind": "rest",
-        "csrf": true,
-        "csrfInBatch": true,
         "credentials": {
           "destination": "oc2"
         }
