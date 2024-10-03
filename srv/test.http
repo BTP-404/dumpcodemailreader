@@ -9,7 +9,7 @@ Authorization:Bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vN2QzYjBmZjN0cmlhbC5
 Get https://mysubaccount-axm16i2j.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/OCR
 
 ####
-POST http://localhost:4004/odata/v4/mail-reader/SelectedMail
+POST http://localhost:34167/odata/v4/mail-reader/SelectedMail
 Content-Type: application/json
 
 {
