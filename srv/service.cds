@@ -25,7 +25,7 @@ service MailReader {
             receiver        : String;
             subject         : String;
             date            : Date;
-            body            : String;
+            body            : LargeString;
             time            : Time;
             noOfAttachments : Integer;
             attachments     : Composition of many Attachments
