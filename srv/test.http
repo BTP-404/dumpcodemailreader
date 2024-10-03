@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:39489/odata/v4/mail-reader/SelectedMail('btptesting7@gmail.com')
+DELETE http://localhost:4004/odata/v4/mail-reader/SelectedMail('btptesting7@gmail.com')
 
 
 ###
