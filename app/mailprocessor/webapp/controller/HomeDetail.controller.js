@@ -1,60 +1,93 @@
-sap.ui.define([
+sap.ui.define([ 
     "sap/ui/core/mvc/Controller",
-    'sap/m/MessageToast',
-    'sap/ui/core/Fragment',
+    "sap/m/MessageToast",
+    "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel"
 ], function (Controller, MessageToast, Fragment, JSONModel) {
     "use strict";
 
     return Controller.extend("com.mailprocessor.controller.HomeDetail", {
-        // Initialize the model globally
-        onInit: function () {
-            var oModel = sap.ui.getCore().getModel("userModel");
-            if (!oModel) {
-                oModel = new JSONModel({
-                    userType: "" // Default value
-                });
-                sap.ui.getCore().setModel(oModel, "userModel");
-            }
-        },
+      onInit: function () {
+    var oModel = sap.ui.getCore().getModel("userModel");
+    if (!oModel) {
+        oModel = new sap.ui.model.json.JSONModel({ userType: "", isLoggedIn: false });
+        sap.ui.getCore().setModel(oModel, "userModel");
+    }
 
-        // On Login press, capture and store the selected user type
+    this.getView().setModel(oModel, "userModel");
+
+    var sUserType = localStorage.getItem("userType");
+    var bIsLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Retrieve login status
+    if (sUserType && bIsLoggedIn) {
+        oModel.setProperty("/userType", sUserType);
+        oModel.setProperty("/isLoggedIn", bIsLoggedIn);
+        console.log("User type and login status retrieved from local storage:", sUserType, bIsLoggedIn);
+    } else {
+        // When user is not logged in or userType is empty, keep the default model values
+        console.warn("No userType or not logged in found in local storage.");
+        oModel.setProperty("/userType", ""); // Set empty userType
+        oModel.setProperty("/isLoggedIn", false); // Ensure the model reflects not logged in
+    }
+}
+,
+
         onLoginPress: function () {
-            // Get user input
-            var oUserTypeComboBox = this.byId("userType");
-            var sUserType = oUserTypeComboBox.getSelectedItem() ? oUserTypeComboBox.getSelectedItem().getText() : "";
+            // Get the user input data
             var sUsername = this.byId("username").getValue();
             var sPassword = this.byId("password").getValue();
+            var sUserType = this.byId("userType").getSelectedKey();
 
-            // Get the global userModel
-            var oModel = sap.ui.getCore().getModel("userModel");
-
-            // Check if user type is selected
+            // Input validation
             if (!sUserType) {
                 MessageToast.show("Please select a user type.");
-                return; // Exit the function if user type is not selected
+                return;
             }
 
-            // Store the selected user type in the global model
-            oModel.setProperty("/userType", sUserType);
-
-            // Authentication logic (this is just for demonstration, modify as needed)
-            if (sUsername && sPassword) {
-                if (sUserType === "Admin") {
-                    MessageToast.show("Logged in as Admin.");
-                    this._navigateTo("RouteEmailAccountConfiguration", sUserType);
-                } else if (sUserType === "User") {
-                    MessageToast.show("Logged in as User.");
-                    this._navigateTo("RouteConfiguredMail", sUserType);
-                } else {
-                    MessageToast.show("Invalid user type selected.");
-                }
-            } else {
+            if (!sUsername || !sPassword) {
                 MessageToast.show("Please enter both username and password.");
+                return;
+            }
+
+            // Assuming successful login, update the model
+            var oModel = this.getView().getModel("userModel");
+            oModel.setProperty("/userType", sUserType);
+            oModel.setProperty("/isLoggedIn", true);
+
+            // Store login details in localStorage for persistence
+            localStorage.setItem("userType", sUserType);
+            localStorage.setItem("isLoggedIn", "true");
+
+            MessageToast.show("Login successful!");
+
+            // Navigate based on user type
+            if (sUserType === "Admin") {
+                this._navigateTo("RouteEmailAccountConfiguration", sUserType);
+            } else if (sUserType === "User") {
+                this._navigateTo("RouteConfiguredMail", sUserType);
             }
         },
 
-        // Function to handle navigation after login
+        onLogout: function () {
+            // Clear login state
+            var oModel = this.getView().getModel("userModel");
+            oModel.setProperty("/userType", "");
+            oModel.setProperty("/isLoggedIn", false);
+
+            // Clear localStorage data
+            localStorage.removeItem("userType");
+            localStorage.removeItem("isLoggedIn");
+
+            MessageToast.show("Logged out successfully!");
+
+            // Redirect to login page
+            this.getOwnerComponent().getRouter().navTo("RouteLogin");
+        },
+
+        onForgotPasswordPress: function () {
+            MessageToast.show("Forgot password clicked!");
+            // You can navigate to a forgot password page here
+        },
+
         _navigateTo: function (sRouteName, sUserType) {
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo(sRouteName, {
@@ -83,10 +116,8 @@ sap.ui.define([
             if (this._oTermsDialog) {
                 this._oTermsDialog.close();
             }
-
             var oModel = this.getView().getModel("userModel");
             var sUserType = oModel.getProperty("/userType");
-            this._oTermsDialog.open();
             this._navigateTo("RouteEmailAccountConfiguration", sUserType);
         },
 
@@ -94,9 +125,8 @@ sap.ui.define([
             if (this._oTermsDialog) {
                 this._oTermsDialog.close();
             }
-
             MessageToast.show("You need to accept the terms to proceed.");
-            this._navigateTo("home");
+            this._navigateTo("RouteHomeDetail");
         }
     });
 });

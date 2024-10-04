@@ -11,33 +11,33 @@ sap.ui.define([
 
     return Controller.extend("com.mailprocessor.controller.MailBox", {
         onInit: function () {
-            var oModel = this.getOwnerComponent().getModel(); // ODataModel V4 used via the component
-            this.getView().setModel(oModel);
+            // var oModel = this.getOwnerComponent().getModel(); // ODataModel V4 used via the component
+            // this.getView().setModel(oModel);
 
-            // Attach event listeners for dataRequested and dataReceived
-            var oTable = this.getView().byId("mailTable");
-            var oBinding = oTable.getBinding("items");
+            // // Attach event listeners for dataRequested and dataReceived
+            // var oTable = this.getView().byId("mailTable");
+            // var oBinding = oTable.getBinding("items");
 
             var oPanel = this.getView().byId("panel");  // Panel to show busy indicator
 
-            // Show busy indicator when data is requested
-            oBinding.attachDataRequested(function () {
-                oPanel.setBusy(true);
-            });
+            // // Show busy indicator when data is requested
+            // oBinding.attachDataRequested(function () {
+            //     oPanel.setBusy(true);
+            // });
 
-            // Hide busy indicator when data is received
-            oBinding.attachDataReceived(function () {
-                oPanel.setBusy(false);
-            });
+            // // Hide busy indicator when data is received
+            // oBinding.attachDataReceived(function () {
+            //     oPanel.setBusy(false);
+            // });
         },
-        extractEmail: function (sFullEmail) {
-            if (!sFullEmail) {
-                return "";
-            }
-            // Regex to extract email from the format "Name <email@example.com>"
-            var aMatch = sFullEmail.match(/<(.+)>/);
-            return aMatch ? aMatch[1] : sFullEmail; // Return email or full string if no match
-        },
+        // extractEmail: function (sFullEmail) {
+        //     if (!sFullEmail) {
+        //         return "";
+        //     }
+        //     // Regex to extract email from the format "Name <email@example.com>"
+        //     var aMatch = sFullEmail.match(/<(.+)>/);
+        //     return aMatch ? aMatch[1] : sFullEmail; // Return email or full string if no match
+        // },
         onSearch: function () {
             // Get the filter values
             var oView = this.getView(),
@@ -116,8 +116,8 @@ sap.ui.define([
                 this.getView().addDependent(this._oAttachmentDialog);
             }
 
-            var oPanel = this.getView().byId("panel");
-            oPanel.setBusy(true);  // Show busy indicator during attachment fetch
+            // var oPanel = this.getView().byId("panel");
+            // oPanel.setBusy(true);  // Show busy indicator during attachment fetch
 
             this._fetchAttachments(sEmailId).then(function (aAttachments) {
                 var oDialogModel = new JSONModel({ attachments: aAttachments });

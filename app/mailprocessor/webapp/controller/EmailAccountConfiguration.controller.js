@@ -74,142 +74,107 @@ sap.ui.define([
             }.bind(this), 600000);
         },
 
- 
-     // Initialize the markRead state as false
-     oMarkRead: false,
 
-     // Event handler for the switch toggle event
-     onSwitchChange: function(oEvent) {
-         // Get the switch state (true if selected, false if not)
-         this.oMarkRead = oEvent.getParameter("state");
-     },
+        // Initialize the markRead state as false
+        oMarkRead: false,
 
-     
-     onSubmit: function () {
-        var oView = this.getView();
-        var oName = oView.byId("fullNameInput");
-        var oEmail = oView.byId("emailInput");
-        var oPassword = oView.byId("passwordInput");
-        var oProtocol = oView.byId("protocolSelect");
-        var oAuth = oView.byId("authSelect");
-        var oPort = oView.byId("portInput");
-        var oConnectionSecurity = oView.byId("securitySelect");
-        var oHostName = oView.byId("hostnameInput");
-        var oPollingFrequency = oView.byId("pollingFrequencyInput");
+        // Event handler for the switch toggle event
+        onSwitchChange: function (oEvent) {
+            // Get the switch state (true if selected, false if not)
+            this.oMarkRead = oEvent.getParameter("state");
+        },
 
-        const namePattern = /^[A-Za-zÀ-ÖØ-ÿ' \-]+$/;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        onSubmit: function () {
+            var oView = this.getView();
+            var oFields = {
+                fullName: oView.byId("fullNameInput"),
+                email: oView.byId("emailInput"),
+                password: oView.byId("passwordInput"),
+                protocol: oView.byId("protocolSelect"),
+                auth: oView.byId("authSelect"),
+                port: oView.byId("portInput"),
+                security: oView.byId("securitySelect"),
+                hostName: oView.byId("hostnameInput"),
+                pollingFrequency: oView.byId("pollingFrequencyInput")
+            };
 
-        // Get selected keywords from the MultiComboBox
-        var oKeywordsMultiComboBox = oView.byId("multiComboBoxId");
-        var aSelectedKeywords = oKeywordsMultiComboBox.getSelectedKeys();
+            const namePattern = /^[A-Za-zÀ-ÖØ-ÿ' \-]+$/;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Validation logic for form inputs (name, email, password, etc.)
-        if (oName.getValue()) {
-            if (namePattern.test(oName.getValue())) {
-                oName.setValueState("None");
-                if (oEmail.getValue()) {
-                    if (emailPattern.test(oEmail.getValue())) {
-                        oEmail.setValueState("None");
-                        if (oPassword.getValue()) {
-                            oPassword.setValueState("None");
-                            if (oProtocol.getSelectedKey()) {
-                                oProtocol.setValueState("None");
-                                if (oAuth.getSelectedKey()) {
-                                    oAuth.setValueState("None");
-                                    if (oPort.getValue()) {
-                                        oPort.setValueState("None");
-                                        if (oPort.getValue() >= 0 && oPort.getValue() <= 65535) {
-                                            oPort.setValueState("None");
-                                            if (oConnectionSecurity.getSelectedKey()) {
-                                                oConnectionSecurity.setValueState("None");
+            // Get selected keywords from the MultiComboBox
+            var aSelectedKeywords = oView.byId("multiComboBoxId").getSelectedKeys();
 
-                                                if (oHostName.getValue()) {
-                                                    oHostName.setValueState("None");
-                                                    if (oPollingFrequency.getValue()) {
-                                                        oPollingFrequency.setValueState("None");
-                                                        if (oPollingFrequency.getValue() >= 0) {
-                                                            oPollingFrequency.setValueState("None");
+            var isValid = true;
 
-                                                            // Create the model and bind the form data
-                                                            let oModel = this.getView().getModel();
-                                                            let oBindList = oModel.bindList("/EmailConfiguration");
-                                                            var portValue = parseInt(oPort.getValue(), 10);
-                                                            var pollingFrequency = parseInt(oPollingFrequency.getValue(), 10);
-
-                                                            // Payload with markRead and other form data
-                                                            var oContext = oBindList.create({
-                                                                fullName: oName.getValue(),
-                                                                emailId: oEmail.getValue(),
-                                                                password: oPassword.getValue(),
-                                                                protocol: oProtocol.getSelectedKey(),
-                                                                authenticationMethod: oAuth.getSelectedKey(),
-                                                                port: portValue,
-                                                                connectionSecurity: oConnectionSecurity.getSelectedKey(),
-                                                                hostName: oHostName.getValue(),
-                                                                pollingFrequency: pollingFrequency,
-                                                                markRead: this.oMarkRead, // Send the current value of markRead
-                                                                keywords: aSelectedKeywords // Add the selected keywords to the payload
-                                                            });
-
-                                                            // Success handling
-                                                           
-
-                                                        } else {
-                                                            oPollingFrequency.setValueStateText("polling frequency is not valid");
-                                                            oPollingFrequency.setValueState("Error");
-                                                        }
-                                                    } else {
-                                                        oPollingFrequency.setValueStateText("polling frequency is mandatory");
-                                                        oPollingFrequency.setValueState("Error");
-                                                    }
-                                                } else {
-                                                    oHostName.setValueStateText("host is mandatory");
-                                                    oHostName.setValueState("Error");
-                                                }
-
-                                            } else {
-                                                oConnectionSecurity.setValueStateText("connection security is invalid");
-                                                oConnectionSecurity.setValueState("Error");
-                                            }
-                                        } else {
-                                            oPort.setValueStateText("port no is invalid");
-                                            oPort.setValueState("Error");
-                                        }
-                                    } else {
-                                        oPort.setValueStateText("port no is mandatory");
-                                        oPort.setValueState("Error");
-                                    }
-                                } else {
-                                    oAuth.setValueStateText("authentication is mandatory");
-                                    oAuth.setValueState("Error");
-                                }
-                            } else {
-                                oProtocol.setValueStateText("protocol is mandatory");
-                                oProtocol.setValueState("Error");
-                            }
-                        } else {
-                            oPassword.setValueStateText("password is mandatory");
-                            oPassword.setValueState("Error");
-                        }
-                    } else {
-                        oEmail.setValueStateText("please enter valid email");
-                        oEmail.setValueState("Error");
-                    }
-                } else {
-                    oEmail.setValueStateText("email is mandatory");
-                    oEmail.setValueState("Error");
+            // Validation logic for form inputs
+            for (var key in oFields) {
+                if (key === "fullName" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "name is mandatory");
+                    isValid = false;
+                } else if (key === "email" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "email is mandatory");
+                    isValid = false;
+                } else if (key === "email" && !emailPattern.test(oFields[key].getValue())) {
+                    this.setFieldError(oFields[key], "please enter valid email");
+                    isValid = false;
+                } else if (key === "password" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "password is mandatory");
+                    isValid = false;
+                } else if (key === "port" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "port no is mandatory");
+                    isValid = false;
+                } else if (key === "port" && (oFields[key].getValue() < 0 || oFields[key].getValue() > 65535)) {
+                    this.setFieldError(oFields[key], "port no is invalid");
+                    isValid = false;
+                } else if (key === "hostName" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "host is mandatory");
+                    isValid = false;
+                } else if (key === "pollingFrequency" && !oFields[key].getValue()) {
+                    this.setFieldError(oFields[key], "polling frequency is mandatory");
+                    isValid = false;
+                } else if (key === "pollingFrequency" && oFields[key].getValue() < 0) {
+                    this.setFieldError(oFields[key], "polling frequency is not valid");
+                    isValid = false;
                 }
-            } else {
-                oName.setValueStateText("please enter valid name");
-                oName.setValueState("Error");
             }
-        } else {
-            oName.setValueStateText("name is mandatory");
-            oName.setValueState("Error");
-        }
-    }
-        ,
+
+            if (isValid) {
+                let oModel = this.getView().getModel();
+                let oBindList = oModel.bindList("/EmailConfiguration");
+
+                var payload = {
+                    fullName: oFields.fullName.getValue(),
+                    emailId: oFields.email.getValue(),
+                    password: oFields.password.getValue(),
+                    protocol: oFields.protocol.getSelectedKey(),
+                    authenticationMethod: oFields.auth.getSelectedKey(),
+                    port: parseInt(oFields.port.getValue(), 10),
+                    connectionSecurity: oFields.security.getSelectedKey(),
+                    hostName: oFields.hostName.getValue(),
+                    pollingFrequency: parseInt(oFields.pollingFrequency.getValue(), 10),
+                    markRead: this.oMarkRead,
+                    keywords: aSelectedKeywords
+                };
+
+                var oContext = oBindList.create(payload, {
+                    success: function () {
+                        // Success handling, route to the Mail Reader
+                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        oRouter.navTo("RouteConfiguredMail"); // Replace with your actual route name
+                        MessageToast.show("Email account configuration submitted successfully!");
+                    }.bind(this),
+                    error: function () {
+                        // Handle errors here
+                        MessageToast.show("Error occurred while submitting the configuration.");
+                    }.bind(this)
+                });
+            }
+        },
+
+        setFieldError: function (oField, sMessage) {
+            oField.setValueState("Error");
+            oField.setValueStateText(sMessage);
+        },
         onPressCheckPrevious: function () {
             var oView = this.getView();
 

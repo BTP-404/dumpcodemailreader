@@ -1,4 +1,4 @@
-<mvc:View 
+<mvc:View  
     controllerName="com.mailprocessor.controller.Home"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
@@ -13,7 +13,7 @@
             icon="sap-icon://home"
             key="home"
             select="onHomeSelect"
-            visible="{= ${userModel>/userType} === '' }" 
+            visible="{= ${userModel>/isLoggedIn} === false || ${userModel>/userType} === '' }"
         />
 
         <!-- Email Accounts Configuration (Admin Only) -->

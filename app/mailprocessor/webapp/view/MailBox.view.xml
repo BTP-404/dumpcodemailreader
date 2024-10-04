@@ -2,7 +2,7 @@
           controllerName="com.mailprocessor.controller.MailBox"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns="sap.m">
-    <Panel id="panel" class="sapUiTinyMargin" headerText="Inbox" width="98%" >
+    <Panel id="panel55" class="sapUiTinyMargin" headerText="Inbox" width="98%" >
         <Panel class="sapUiTinyMargin" headerText="Filters" width="98%" expandable="true"> 
         <!-- Filter Section -->
         <VBox class="sapUiSmallMargin">
@@ -63,8 +63,8 @@
         <ColumnListItem>
             <cells>
                 <!-- Use formatter to extract email -->
-                <Text text="{path: 'sender', formatter: '.extractEmail'}" />
-                <Text text="{path: 'receiver', formatter: '.extractEmail'}" />
+                <Text text="{sender}" />
+                <Text text="{receiver}" />
                 <Text text="{subject}" />
                 <Text text="{date}" />
                 <Text text="{noOfAttachments}" />
