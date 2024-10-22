@@ -5,7 +5,7 @@
     xmlns:smartList="sap.ui.comp.smartlist">
 
     <Panel id="panel11" class="sapUiTinyMargin" headerText="Configured Mails" width="98%">
-        <!-- Define the Table -->
+     
         <Table id="emailTable1" 
             items="{/EmailConfiguration}" 
             mode="SingleSelectMaster"  

@@ -1,0 +1,102 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.Inbox"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartList="sap.ui.comp.smartlist"
+>
+
+    <Panel id="_1IDGenPanel41">
+        <Bar
+            id="1headerBar141"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage1141"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle1241"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIco3n4"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+    <Panel id="panel11" class="sapUiTinyMargin" headerText="Configured Mails" width="98%">
+        
+        <Table id="emailTable1" 
+            items="{/EmailConfiguration}" 
+            width="100%">
+           
+            <columns>
+                <Column>
+                    <Text text="Name" />
+                </Column>
+                <Column>
+                    <Text text="Email" />
+                </Column>
+                <Column visible="false">
+                    <Text text="Password" />
+                </Column>
+                <Column>
+                    <Text text="Host Name" />
+                </Column>
+                <Column>
+                    <Text text="Port" />
+                </Column>
+                <Column>
+                    <Text text="Keywords" />
+                </Column>
+                <Column>
+                    <Text text="Connection Security" />
+                </Column>
+                <Column>
+                    <Text text="Polling Frequency" />
+                </Column>
+                <Column>
+                    <Text text="" />
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{fullName}" />
+                        <Text text="{emailId}" />
+                        <Text text="{password}" />
+                        <Text text="{hostName}" />
+                        <Text text="{port}" />
+                        <Text text="{path: 'keywords', formatter: '.formatKeywords'}" />
+                        <Text text="{connectionSecurity}" />
+                        <Text text="{pollingFrequency}" />
+                        <Button
+                            text="Proceed"
+                            press="onProceedIconPress"
+                            type="Success"
+                            icon="sap-icon://process"
+                        />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Panel>
+
+</mvc:View>

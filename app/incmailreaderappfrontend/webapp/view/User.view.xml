@@ -1,0 +1,181 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.User"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+>
+    <Panel id="_1IDGenPanel1">
+        <Bar
+            id="1headerBar11"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage111"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle121"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIco3n"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+
+    <HBox
+        id="_IDGenHBox"
+        justifyContent="SpaceBetween"
+        height="100%"
+    >
+        <VBox
+            id="_IDGenVBox"
+            alignItems="Center"
+            width="50%"
+            class="sapUiSmallMargin"
+        >
+            <Panel
+                headerText="Sign Up"
+                height="auto"
+                width="100%"
+                class="sapUiMediumMarginBottom"
+            >
+                <VBox
+                    justifyContent="Center"
+                    width="100%"
+                >
+                    <Label
+                        text="User Name:"
+                        design="Bold"
+                        required="true"
+                    />
+                    <Input
+                        id="userName"
+                        placeholder="Enter user name"
+                        width="100%"
+                        required="true"
+                    />
+
+                    <Label
+                        text="Email ID:"
+                        design="Bold"
+                        required="true"
+                    />
+                    <Input
+                        id="emailId"
+                        type="Email"
+                        placeholder="Enter email ID"
+                        width="15rem"
+                        required="true"
+                    />
+
+                    <Label
+                        text="Password:"
+                        design="Bold"
+                        required="true"
+                    />
+                    <Input
+                        id="password"
+                        type="Password"
+                        placeholder="Enter password"
+                        width="15rem"
+                        required="true"
+                    />
+
+                    <Label
+                        id="adminCheckbox"
+                        text="Admin"
+                        labelFor="mySwitch1"
+                        design="Bold"
+                    />
+                    <Switch
+                        id="mySwitch1"
+                        type="AcceptReject"
+                        change="onSwitchChange"
+                    />
+
+                    <Button
+                        text="Submit"
+                        type="Success"
+                        press="onSubmit"
+                    />
+                </VBox>
+            </Panel>
+        </VBox>
+
+        <VBox
+            width="80%"
+            class="sapUiSmallMargin"
+        >
+            <Panel
+                headerText="User List (Editable)"
+                height="auto"
+                width="100%"
+                class="sapUiMediumMarginEnd"
+            >
+                <Table
+                    id="userTable"
+                    items="{/User}"
+                    width="100%"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="User Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Email ID" />
+                        </Column>
+                        <Column>
+                            <Text text="Admin" />
+                        </Column>
+                        <Column>
+                            <Text text="Actions" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Input
+                                    value="{userName}"
+                                    width="100%"
+                                />
+                                <Input
+                                    value="{emailId}"
+                                    width="100%"
+                                />
+                                <Switch
+                                    id="mySwitchAdmin"
+                                    type="AcceptReject"
+                                    state="{isAdmin}"
+                                    change="onAdminSwitchChange"
+                                />
+                                <Button
+                                    icon="sap-icon://delete"
+                                    press="onDeleteUser"
+                                    type="Negative"
+                                    tooltip="Delete User"
+                                    
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+        </VBox>
+    </HBox>
+</mvc:View>

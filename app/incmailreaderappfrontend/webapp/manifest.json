@@ -1,0 +1,192 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.incresol.incmailreaderappfrontend",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.15.1",
+      "toolsId": "ca1f4108-288f-4661-bdc6-d51a4c406f67"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/mail-reader/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.129.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.incresol.incmailreaderappfrontend.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.incresol.incmailreaderappfrontend.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteLoginPage",
+          "pattern": ":?query:",
+          "target": [
+            "TargetLoginPage"
+          ]
+        },{
+          "name": "RouteHomePage",
+          "pattern": "Home/{isAdmin}/{emailId}",
+          "target": [
+            "TargetHomePage"
+          ]
+        },
+        {
+          "name": "RouteConfiguration",
+          "pattern": "Configuration",
+          "target": [
+            "TargetConfiguration"
+          ]
+        },{
+          "name": "RouteEmailConfiguration",
+          "pattern": "EmailConfiguration",
+          "target": [
+            "TargetEmailConfiguration"
+          ]
+        },{
+          "name": "RouteUser",
+          "pattern": "User",
+          "target": [
+            "TargetUser"
+          ]
+        },{
+          "name": "RouteInbox",
+          "pattern": "Inbox",
+          "target": [
+            "TargetInbox"
+          ]
+        },{
+          "name": "RouteMailBox",
+          "pattern": "MailBox",
+          "target": [
+            "TargetMailBox"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetLoginPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "LoginPage",
+          "viewName": "LoginPage"
+        },"TargetHomePage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "HomePage",
+          "viewName": "HomePage"
+        },"TargetConfiguration": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Configuration",
+          "viewName": "Configuration"
+        }
+        ,"TargetEmailConfiguration": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "EmailConfiguration",
+          "viewName": "EmailConfiguration"
+        },"TargetUser": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "User",
+          "viewName": "User"
+        },"TargetInbox": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Inbox",
+          "viewName": "Inbox"
+        },"TargetMailBox": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "MailBox",
+          "viewName": "MailBox"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.incresol.incmailreaderappfrontend.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

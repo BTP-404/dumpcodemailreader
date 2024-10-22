@@ -1,0 +1,54 @@
+/* Enter your custom styles here */
+
+
+.formVBox {
+    background: linear-gradient(225deg, hsla(274, 49%, 29%, 1) 27%, hsla(241, 53%, 22%, 1) 60%); /* Slightly darker background for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    color: rgb(4, 4, 4);
+    width: 295px;
+    height:  33rem;
+}
+
+.companyLogo {
+    width: 62rem;
+    height: 33rem;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.loginButton {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.forgotPasswordLink {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.textcolor{
+    color:white;
+}
+
+.title {
+    font-size: x-large;
+    color: #08085b;
+    font-weight: bolder;
+}
+.titleuser{
+    font-size: medium;
+}
+.bold-icon{
+    font-size: 1.5rem;
+    color:#08085b;
+}
+.titleuser{
+  
+}
+.iconConfig{
+    font-size: xx-large;
+}

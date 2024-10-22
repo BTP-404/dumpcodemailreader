@@ -13,7 +13,7 @@
             icon="sap-icon://home"
             key="home"
             select="onHomeSelect"
-            visible="{= ${userModel>/isLoggedIn} === false || ${userModel>/userType} === '' }"
+           
         />
 
         <!-- Email Accounts Configuration (Admin Only) -->

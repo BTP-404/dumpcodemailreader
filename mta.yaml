@@ -1,49 +1,103 @@
 _schema-version: 3.3.0
 ID: MailReaderAutomation
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: MailReaderAutomation-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: MailReaderAutomation-db
+  - name: MailReaderAutomation-destination
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    readiness-health-check-http-endpoint: /health
+    readiness-health-check-type: http
+  build-parameters:
+    builder: npm
+- name: MailReaderAutomation-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: MailReaderAutomation-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: MailReaderAutomation-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: MailReaderAutomation-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comincresolfrontendmailprocessorapp.zip
+      name: comincresolfrontendmailprocessorapp
+      target-path: resources/
+    - artifacts:
+      - comincresolincmailreaderappfrontend.zip
+      name: comincresolincmailreaderappfrontend
+      target-path: resources/
+- name: comincresolfrontendmailprocessorapp
+  type: html5
+  path: app/frontendmailprocessorapp
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comincresolincmailreaderappfrontend
+  type: html5
+  path: app/incmailreaderappfrontend
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: MailReaderAutomation-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: MailReaderAutomation-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+    service: destination
+    service-plan: lite
+- name: MailReaderAutomation-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: MailReaderAutomation-html5-srv
+    service-plan: app-host
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
-modules:
-  - name: MailReaderAutomation-srv
-    type: nodejs
-    path: gen/srv
-    parameters:
-      buildpack: nodejs_buildpack
-      readiness-health-check-type: http
-      readiness-health-check-http-endpoint: /health
-    build-parameters:
-      builder: npm
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: MailReaderAutomation-db
-      - name: MailReaderAutomation-destination
-
-  - name: MailReaderAutomation-db-deployer
-    type: hdb
-    path: gen/db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: MailReaderAutomation-db
-
-resources:
-  - name: MailReaderAutomation-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-  - name: MailReaderAutomation-destination
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: destination
-      service-plan: lite
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

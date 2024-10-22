@@ -11,14 +11,99 @@ const axios = require('axios')
 const FormData = require("form-data")
 
 
-//Globally Definining start and end time of email processing.
+
 let startTime;
 let endTime;
 let errorLogs = [];
 
 module.exports = cds.service.impl(async function () {
     try {
-        const { SelectedMail, EmailData, EmailConfiguration, Attachments, Logs, OCRProcess, OcrDocInfo, OcrHeaderFields, OcrLineItems } = this.entities;
+        const { SelectedMail, User, EmailData, EmailConfiguration, Attachments, Logs, OCRProcess, OcrDocInfo, OcrHeaderFields, OcrLineItems } = this.entities;
+
+        this.on('signup', async (req, res) => {
+            try {
+                const { userName, emailId, password, isAdmin } = req.data;
+                let foundUser = await cds.run(SELECT.one.from(User).where({ emailId }));
+                if (foundUser) {
+                    let payload = {
+                        status: 409,
+                        message: "Conflict..User already exists!!!",
+                    }
+                    return req.reply(JSON.stringify(payload))
+                }
+                else {
+                    await cds.run(INSERT.into(User).entries(req.data));
+                    let user = await cds.run(SELECT.from(User).where({ emailId }));
+                    let payload = {
+                        status: 201,
+                        message: "signup successful!!",
+                        data: user
+                    }
+                    return req.reply(JSON.stringify(payload))
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        })
+        this.on('login', async (req, res) => {
+
+
+            try {
+                const { emailId, password } = req.data;
+                let user = await cds.run(SELECT.one.from(User).where({ emailId: emailId }));
+
+                if (!user) {
+                    let payload = {
+                        status: 404,
+                        message: "User not found!"
+                    }
+                    return req.reply(JSON.stringify(payload));
+                } else {
+                    if (password == user.password) {
+                        let payload = {
+                            status: 200,
+                            message: "Login successful!!",
+                            data: user
+                        }
+                        return req.reply(JSON.stringify(payload))
+                    } else {
+                        // console.log(user)
+                        let payload = {
+                            status: 400,
+                            message: "Unauthorized!!!"
+                        }
+                        return req.reply(JSON.stringify(payload));
+
+                    }
+
+                }
+            } catch (error) {
+                console.log(error)
+
+            }
+
+        })
+        this.on('cleardb', async (req, res) => {
+
+            try {
+                await cds.run(DELETE.from(SelectedMail));
+                await cds.run(DELETE.from(EmailData));
+                await cds.run(DELETE.from(OCRProcess));
+                await cds.run(DELETE.from(Logs));
+
+                console.log("ALL DB CLEARED!!!!");
+                let payload = {
+                    status: 200,
+                    message: "all db cleared!!!"
+                }
+                return req.reply(JSON.stringify(payload));
+    
+            } catch (error) {
+                console.log("Error from db clear action::", error.message);
+            }
+        })
+
         this.after('CREATE', OCRProcess, async (req) => {
             try {
                 const formData1 = req.formData;
@@ -123,18 +208,7 @@ module.exports = cds.service.impl(async function () {
 
         // })
 
-        this.after('DELETE', SelectedMail, async (req, res) => {
-
-            try {
-                await cds.run(DELETE.from(EmailData));
-                await cds.run(DELETE.from(OCRProcess));
-                await cds.run(DELETE.from(Logs));
-
-                console.log("alL DB CLEARED!!!!");
-            } catch (error) {
-                console.log("Error from selected mail before::", error.message);
-            }
-        })
+      
         this.after('CREATE', SelectedMail, async (req, res) => {
 
             const imap = new Imap({
@@ -397,11 +471,6 @@ async function insertOcrExtractedData(ocrData, OcrDocInfo, OcrHeaderFields, OcrL
         });
 
     });
-
-
-
-    // await cds.run(INSERT.into(OcrDocInfo).entries(OcrDocInfoPayload));
-
 
 
 }

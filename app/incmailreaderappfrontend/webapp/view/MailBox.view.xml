@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.MailBox"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+>
+    <Panel id="_1IDGenPane3l1">
+        <Bar
+            id="1headerBar131"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage1131"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle123"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIco33n"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+
+
+</mvc:View>

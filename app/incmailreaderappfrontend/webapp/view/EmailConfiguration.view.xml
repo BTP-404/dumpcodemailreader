@@ -1,0 +1,245 @@
+<mvc:View
+    xmlns:core="sap.ui.core"
+    controllerName="com.incresol.incmailreaderappfrontend.controller.EmailConfiguration"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true"
+>
+    <Panel id="_1IDGenPanel">
+        <Bar
+            id="1headerBar1"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage11"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle11"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIcon"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+    <Panel
+        id="_IDGenPanel1"
+        class="sapUiLargeMargin"
+        height="430px"
+        width="1200px"
+        headerText="Email Configuration"
+    >
+        <HBox
+            id="_IDGenHBox2"
+            class="sapUiSmallMargin"
+            alignContent="Center"
+            justifyContent="SpaceBetween"
+        >
+            <VBox id="_IDGenVBox1" width="30%">
+                <Label
+                    id="_IDGenLabel1"
+                    text="Your Full Name"
+                    labelFor="fullNameInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="fullNameInput"
+                    placeholder="Enter your full name"
+                    width="100%"
+                    class=" sapUiMediumMarginBottom"
+                />
+                <Label
+                    id="_IDGenLabel2"
+                    text="Email Address"
+                    labelFor="emailInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="emailInput"
+                    placeholder="Enter your email address"
+                    width="100%"
+                    class=" sapUiMediumMarginBottom"
+                />
+                <Label
+                    id="_IDGenLabel3"
+                    text="Password"
+                    labelFor="passwordInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="passwordInput"
+                    type="Password"
+                    placeholder="Enter your password"
+                    width="100%"
+                    class="sapUiLargeMarginBottom sapUiMediumMarginBottom"
+                />
+            </VBox>
+            <VBox id="_IDGenVBox2" width="30%">
+                <Label
+                    id="_IDGenLabel9"
+                    text="HostName"
+                    labelFor="hostnameInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="hostnameInput"
+                    placeholder="Enter hostname"
+                    width="100%"
+                    class=" sapUiMediumMarginBottom"
+                />
+                <Label
+                    id="_IDGenLabel6"
+                    text="Port"
+                    labelFor="portInput"
+                    design="Bold"
+                    required="true"
+                />
+                <Input
+                    id="portInput"
+                    placeholder="Enter port"
+                    width="100%"
+                    type="Number"
+                    class=" sapUiMediumMarginBottom"
+                />
+                <Label
+                    id="_IDGenLabel7"
+                    text="Connection Security"
+                    labelFor="securitySelect"
+                    design="Bold"
+                    required="true"
+                />
+                <ComboBox
+                    id="securitySelect"
+                    width="100%"
+                    class=" sapUiMediumMarginBottom"
+                >
+                    <core:Item
+                        id="_IDGenItem3"
+                        key="AutoDetect"
+                        text="Auto detect"
+                    />
+                    <core:Item
+                        id="_IDGenItem4"
+                        key="None"
+                        text="None"
+                    />
+                    <core:Item
+                        id="_IDGenItem5"
+                        key="StartTLS"
+                        text="StartTLS"
+                    />
+                    <core:Item
+                        id="_IDGenItem6"
+                        key="SSL_TLS"
+                        text="SSL/TLS"
+                    />
+                </ComboBox>
+            </VBox>
+            <VBox id="_IDGenVBox3" width="30%">
+                <Label
+                    id="_IDGenLabel101"
+                    text="Polling Frequency (5-30 seconds)"
+                    design="Bold"
+                    required="true"
+                />
+                <Slider
+                    id="pollingFrequencySlider"
+                    min="5"
+                    max="30"
+                    enableTickmarks="true"
+                    class="sapUiMediumMarginBottom"
+                    width="100%"
+                    change="onPollingFrequencyChange"
+                >
+                    <ResponsiveScale tickmarksBetweenLabels="5"/>
+                </Slider>
+                
+                
+                <Label
+                    id="_IDGenLabel102"
+                    text="Keywords"
+                    labelFor="inputContainer"
+                    design="Bold"
+                />
+                <VBox
+                    id="inputContainer"
+                    width="100%"
+                >
+                </VBox>
+                <MultiComboBox
+                    id="multiComboBoxId"
+                    width="100%"
+                    selectionChange="onSelectionChange"
+                    class=" sapUiMediumMarginBottom"
+                >
+                    <core:Item
+                        key="Bill"
+                        text="Bill"
+                    />
+                    <core:Item
+                        key="Invoice"
+                        text="Invoice"
+                    />
+                    <core:Item
+                        key="Support"
+                        text="Support"
+                    />
+                </MultiComboBox>
+                <Label
+                    id="markReadCheckbox"
+                    text="Mark The Email Read"
+                    labelFor="mySwitch"
+                    design="Bold"
+                />
+                <Switch
+                    id="mySwitch"
+                    type="AcceptReject"
+                    change="onSwitchChange"
+                    class=" sapUiMediumMarginBottom"
+                />
+            </VBox>
+        </HBox>
+        <Panel id="_IDGenPanel2">
+            <HBox
+                id="_IDGenHBox3"
+              
+            >
+                <Button
+                    id="_IDGenButton1"
+                    text="Submit"
+                    type="Success"
+                    press="onSubmit"
+                    class=""
+                />
+                <Button
+                    id="_IDGenButton3"
+                    text="Check Previous Configuration Details"
+                    type="Attention"
+                    class="sapUiLargeMarginBegin"
+                    press="onPressCheckPrevious"
+                />
+            </HBox>
+        </Panel>
+    </Panel>
+</mvc:View>

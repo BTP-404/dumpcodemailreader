@@ -4,16 +4,17 @@ service MailReader {
     // entity Organization as projection on IC.Organization;
     // entity Administrator as projection on IC.Administrator;
     entity EmailConfiguration as projection on IC.EmailConfiguration;
-    entity OcrDocInfo         as projection on IC.OcrDocInfo
-    entity OcrHeaderFields    as projection on IC.OcrHeaderFields
+    entity OcrDocInfo         as projection on IC.OcrDocInfo;
+    entity OcrHeaderFields    as projection on IC.OcrHeaderFields;
     entity OcrLineItems       as projection on IC.OcrLineItems;
-    // entity Attachments        as projection on IC.Attachments;
-
+    entity User               as projection on IC.User;
+    action signup(userName : String, emailId : String, password : String, isAdmin : Boolean) returns String;
+    action login(emailId : String, password : String)                                        returns String ;
+    action cleardb()  returns String;
 
     entity SelectedMail {
         key useremail : String;
             password  : String;
-            protocol  : String;
             host      : String;
             port      : Integer;
             tls       : Boolean;

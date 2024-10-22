@@ -6,33 +6,7 @@ sap.ui.define([
 
     return Controller.extend("com.mailprocessor.controller.Home", {
         onInit: function () {
-            var oModel = sap.ui.getCore().getModel("userModel");
-
-            if (!oModel) {
-                // Initialize user model with default values
-                oModel = new sap.ui.model.json.JSONModel({
-                    userType: "",       // Default to empty string
-                    isLoggedIn: false   // Default to false
-                });
-                sap.ui.getCore().setModel(oModel, "userModel");
-            }
-
-            // Always set the model to the view
-            this.getView().setModel(oModel, "userModel");
-
-            // Check for userType and login status in localStorage
-            var sUserType = localStorage.getItem("userType");
-            var bIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-            if (sUserType && bIsLoggedIn) {
-                oModel.setProperty("/userType", sUserType);
-                oModel.setProperty("/isLoggedIn", bIsLoggedIn);
-                console.log("User type and login status retrieved from local storage:", sUserType, bIsLoggedIn);
-            } else {
-                // Set model properties to defaults if not logged in
-                oModel.setProperty("/userType", ""); // Ensure it is empty
-                oModel.setProperty("/isLoggedIn", false); // Ensure not logged in
-            }
+ 
         },
 
         onHomeSelect: function () {

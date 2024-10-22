@@ -1,0 +1,88 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.LoginPage"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Panel>
+        <Bar
+            id="headerBar"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_IDGenImage1"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+
+            <!-- Title in the middle -->
+            <contentMiddle>
+                <Title
+                    id="_IDGenTitle1"
+                    level="H1"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+        </Bar>
+        <HBox
+            id="_IDGenHBox4"
+            justifyContent="SpaceBetween"
+            class="loginContainer"
+        >
+            <Image
+                id="_IDGenImage"
+                src="./images/incresolimage.jpg"
+                alt="Company Logo"
+                class="companyLogo"
+            />
+            <VBox
+                id="_IDGenVBox"
+                class="formVBox"
+                width="20%"
+            >
+                <Label
+                    id="_IDGenLabel12"
+                    text="Email:"
+                    labelFor="emailid"
+                    class="textcolor"
+                />
+                <Input
+                    id="emailid"
+                    placeholder="enter email id"
+                    showValueHelp="false"
+                />
+                <Label
+                    id="_IDGenLabel13"
+                    text="Password:"
+                    labelFor="password"
+                    class="textcolor"
+                />
+                <Input
+                    id="password"
+                    type="Password"
+                    placeholder="enter password"
+                    showValueHelp="false"
+                />
+                <Button
+                    id="_IDGenButton"
+                    text="Login"
+                    type="Emphasized"
+                    press="onLoginPress"
+                    class="loginButton"
+                />
+                <Link
+                    id="_IDGenLink"
+                    text="Forgot password?"
+                    press="onForgotPasswordPress"
+                    class="forgotPasswordLink"
+                />
+            </VBox>
+        </HBox>
+    </Panel>
+</mvc:View>
