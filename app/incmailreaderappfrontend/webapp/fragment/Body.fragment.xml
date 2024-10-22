@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="bodyPreviewDialog"
+        title="Email Body"
+        class="sapUiResponsivePadding"
+        draggable="true"
+        resizable="true"
+    >
+        <content>
+            <VBox id="htmlContainer" />
+        </content>
+        <buttons>
+            <Button
+                text="Close"
+                press="onCloseDialog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

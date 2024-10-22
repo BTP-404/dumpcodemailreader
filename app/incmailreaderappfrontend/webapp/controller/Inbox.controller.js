@@ -7,11 +7,11 @@ sap.ui.define(
     ],
     function (Controller, Fragment, MessageBox, MessageToast) {
         "use strict";
-        var oRouter;
-
+       
+     var oRouter;
         return Controller.extend("com.incresol.incmailreaderappfrontend.controller.Inbox", {
             onInit: function () {
-                oRouter = this.getOwnerComponent().getRouter();
+               this.getOwnerComponent().getRouter();
             },
 
             handlePopoverPress: function (oEvent) {
@@ -37,6 +37,7 @@ sap.ui.define(
 
             handlelogoutPress: function (oEvent) {
                 this.byId("myPopover").close();
+                var   oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo('RouteLoginPage');
             },
 
@@ -50,7 +51,7 @@ sap.ui.define(
                     method: 'POST',
                     contentType: 'application/json',
                     success: function () {
-                        MessageToast.show('db cleared')
+                        
                         let oModel = this.getView().getModel();
                         let oBindList = oModel.bindList("/SelectedMail");
 
@@ -76,18 +77,6 @@ sap.ui.define(
                     }
                 });
 
-                // if (oContext) {
-                //     var oSelectedData = oContext.getObject();
-
-                //     MessageBox.confirm("Are you sure you want to proceed with the selected configuration for this email?", {
-                //         actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-                //         onClose: function (oAction) {
-                //             if (oAction === MessageBox.Action.OK) {
-                                
-                //             }
-                //         }.bind(this)
-                //     });
-                // }
             },
 
             formatKeywords: function (keywords) {

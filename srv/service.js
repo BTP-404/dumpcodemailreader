@@ -199,15 +199,7 @@ module.exports = cds.service.impl(async function () {
         });
 
 
-        // this.after('CREATE', EmailConfiguration, async (req, res) => {
-        //     let password = req.password;
-        //     const salt = await bcrypt.genSalt(12);
-        //     const hash = await bcrypt.hash(password, salt);
-
-        //     await cds.run(UPDATE(EmailConfiguration).set({ password: hash }).where({ ID: req.ID }));
-
-        // })
-
+        
       
         this.after('CREATE', SelectedMail, async (req, res) => {
 

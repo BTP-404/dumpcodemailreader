@@ -5,7 +5,7 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
 >
-    <Panel id="_1IDGenPane3l1">
+    <Panel>
         <Bar
             id="1headerBar131"
             class="header"
@@ -37,6 +37,89 @@
             </contentRight>
         </Bar>
     </Panel>
+    <Panel
+        class="sapUiSmallMargin"
+        width="97%"
+    >
+        <ScrollContainer
+            height="450px"
+            width="100%"
+            vertical="true"
+            focusable="true"
+        >
+            <Table
+                id="mailTable"
+                items="{/EmailData}"
+                growing="true"
+                sticky="ColumnHeaders"
+                alternateRowColors="true"
+                enableBusyIndicator="true"
+            >
+                <columns>
+                    <Column width="17rem">
+                        <Text text="From" />
+                    </Column>
+                    <Column>
+                        <Text
+                            text="Subject"
+                            width="20rem"
+                        />
+                    </Column>
 
+                    <Column>
+                        <Text
+                            text="Date"
+                            width="17rem"
+                        />
+                    </Column>
+                    <Column>
+                        <Text
+                            text="Body"
+                            width="10rem"
+                        />
+                    </Column>
 
+                    <Column>
+                        <Text
+                            text="Attachment"
+                            width="15rem"
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text
+                                text="{path: 'sender', formatter: '.formatter.formatEmail'}"
+                            />
+                            <Text text="{subject}" />
+
+                            <Text text="{date}" />
+                            <HBox >
+                            <Button
+                                icon="sap-icon://show"
+                                type="Reject"
+                                press="onPreviewBody"
+                            />
+                            <Text text="{body}" visible="false"></Text>
+                            </HBox>
+                            
+                            <HBox>
+                                <Button
+                                    icon="sap-icon://attachment"
+                                    type="Accept"
+                                    press="onShowAttachments"
+                                />
+                                <VBox>
+                                    <Text
+                                        text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}"
+                                    />
+                                </VBox>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </ScrollContainer>
+    </Panel>
 </mvc:View>
