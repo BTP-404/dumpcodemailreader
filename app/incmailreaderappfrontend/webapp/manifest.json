@@ -133,6 +133,12 @@
           "target": [
             "TargetMailBox"
           ]
+        },{
+          "name": "RouteMailProcessor",
+          "pattern": "MailProcessor",
+          "target": [
+            "TargetMailProcessor"
+          ]
         }
       ],
       "targets": {
@@ -179,6 +185,12 @@
           "clearControlAggregation": false,
           "viewId": "MailBox",
           "viewName": "MailBox"
+        },"TargetMailProcessor": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "MailProcessor",
+          "viewName": "MailProcessor"
         }
       }
     },

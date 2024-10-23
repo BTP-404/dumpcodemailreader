@@ -38,11 +38,144 @@
         </Bar>
     </Panel>
     <Panel
+        class="sapUiTinyMargin"
+        width="97%"
+    ><HBox  justifyContent="Start">
+        <Button
+            id="btnHome"
+            class="sapUiMediumMarginEnd"
+            text="Home"
+            icon="sap-icon://home"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        <Button
+            id="btnEmailConfig"
+            class="sapUiMediumMarginEnd"
+            text="Email Configuration"
+            icon="sap-icon://action-settings"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        <Button
+            id="btnUserManagement"
+            class="sapUiMediumMarginEnd"
+            text="User Management"
+            icon="sap-icon://person-placeholder"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        <Button
+            id="btnSelectMail"
+            class="sapUiMediumMarginEnd"
+            text="Select Mail"
+            icon="sap-icon://accept"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+         <Button
+            id="btnMailBox"
+            class="sapUiMediumMarginEnd"
+            text="Inbox"
+            icon="sap-icon://email"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        <Button
+            id="btnMailProcessor"
+            class="sapUiMediumMarginEnd"
+            text="Mail Processor"
+            icon="sap-icon://process"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        <Button
+            id="btnInvoiceApp"
+            class="sapUiMediumMarginEnd"
+            text="Invoice App"
+            icon="sap-icon://receipt"
+            press="onButtonPress"
+            type="Emphasized"
+        />
+        
+        </HBox>
+        <HBox justifyContent="End">
+        <Button
+            id="btnMailProcessorlog1"
+            class="sapUiMediumMarginEnd"
+            text="Logs"
+            icon="sap-icon://group-2"
+            press="onButtonPress"
+            type="Attention"
+        /></HBox>
+         
+    </Panel>
+
+    <Panel
+        class="sapUiTinyMargin"
+        width="97%"
+    >
+        <HBox alignItems="Center">
+            <SearchField
+                id="searchField"
+                placeholder="Search ....."
+                search="onSearch"
+                width="300px"
+                liveChange="onSearch"
+            />
+
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="From"
+                design="Bold"
+                showColon="true"
+            />
+            <Input
+                class="sapUiTinyMarginBegin"
+                id="inputFrom"
+                placeholder="Enter sender"
+                width="200px"
+                liveChange="onSearchFrom"
+            />
+
+            
+
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="Subject"
+                design="Bold"
+                showColon="true"
+            />
+            <Input
+                class="sapUiTinyMarginBegin"
+                id="inputSubject"
+                placeholder="Enter subject"
+                width="200px"
+                liveChange="onSearchSubject"
+            />
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="Date"
+                design="Bold"
+                showColon="true"
+            />
+            <DatePicker
+                class="sapUiTinyMarginBegin"
+                id="inputDate"
+                placeholder="Enter date"
+                width="200px"
+                afterValueHelpClose="onSearchDate"
+                
+            />
+        </HBox>
+    </Panel>
+
+    <Panel
         class="sapUiSmallMargin"
         width="97%"
     >
         <ScrollContainer
-            height="450px"
+            height="350px"
             width="100%"
             vertical="true"
             focusable="true"
@@ -95,15 +228,18 @@
                             <Text text="{subject}" />
 
                             <Text text="{date}" />
-                            <HBox >
-                            <Button
-                                icon="sap-icon://show"
-                                type="Reject"
-                                press="onPreviewBody"
-                            />
-                            <Text text="{body}" visible="false"></Text>
+                            <HBox>
+                                <Button
+                                    icon="sap-icon://show"
+                                    type="Reject"
+                                    press="onPreviewBody"
+                                />
+                                <Text
+                                    text="{body}"
+                                    visible="false"
+                                />
                             </HBox>
-                            
+
                             <HBox>
                                 <Button
                                     icon="sap-icon://attachment"

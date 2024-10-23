@@ -1,0 +1,456 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.MailProcessor"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+>
+    <Panel>
+        <Bar
+            id="1headerBar131"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage1131"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle123"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIco33n"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+    <Panel
+        class="sapUiTinyMargin"
+        width="97%"
+    >
+        <HBox justifyContent="Start">
+            <Button
+                id="btnHome"
+                class="sapUiMediumMarginEnd"
+                text="Home"
+                icon="sap-icon://home"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnEmailConfig"
+                class="sapUiMediumMarginEnd"
+                text="Email Configuration"
+                icon="sap-icon://action-settings"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnUserManagement"
+                class="sapUiMediumMarginEnd"
+                text="User Management"
+                icon="sap-icon://person-placeholder"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnSelectMail"
+                class="sapUiMediumMarginEnd"
+                text="Select Mail"
+                icon="sap-icon://accept"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnMailBox"
+                class="sapUiMediumMarginEnd"
+                text="Inbox"
+                icon="sap-icon://email"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnMailProcessor"
+                class="sapUiMediumMarginEnd"
+                text="Mail Processor"
+                icon="sap-icon://process"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnInvoiceApp"
+                class="sapUiMediumMarginEnd"
+                text="Invoice App"
+                icon="sap-icon://receipt"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+        </HBox>
+        <HBox justifyContent="End">
+            <Button
+                id="btnMailProcessorlog1"
+                class="sapUiMediumMarginEnd"
+                text="Logs"
+                icon="sap-icon://group-2"
+                press="onButtonPress"
+                type="Critical"
+            />
+        </HBox>
+    </Panel>
+
+    <Panel
+        class="sapUiTinyMargin"
+        width="97%"
+    >
+        <HBox alignItems="Center">
+            <SearchField
+                id="searchField"
+                placeholder="Search ....."
+                search="onSearch"
+                width="300px"
+                liveChange="onSearch"
+            />
+
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="From"
+                design="Bold"
+                showColon="true"
+            />
+            <Input
+                class="sapUiTinyMarginBegin"
+                id="inputFrom"
+                placeholder="Enter sender"
+                width="200px"
+                liveChange="onSearchFrom"
+            />
+
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="Subject"
+                design="Bold"
+                showColon="true"
+            />
+            <Input
+                class="sapUiTinyMarginBegin"
+                id="inputSubject"
+                placeholder="Enter subject"
+                width="200px"
+                liveChange="onSearchSubject"
+            />
+            <Label
+                class="sapUiSmallMarginBegin"
+                text="Date"
+                design="Bold"
+                showColon="true"
+            />
+            <DatePicker
+                class="sapUiTinyMarginBegin"
+                id="inputDate"
+                placeholder="Enter date"
+                width="200px"
+                afterValueHelpClose="onSearchDate"
+            />
+        </HBox>
+    </Panel>
+
+    <Panel
+        class="sapUiSmallMargin"
+        width="97%"
+    >
+        <IconTabBar
+            id="iconTabBar1"
+            expanded="true"
+            select="onTabSelect"
+        >
+            <items>
+                <IconTabFilter
+                    key="invoice"
+                    text="Invoice"
+                    icon="sap-icon://doc-attachment"
+                    design="Vertical"
+                    iconColor="Positive"
+                >
+                    <ScrollContainer
+                        height="250px"
+                        width="100%"
+                        vertical="true"
+                        focusable="true"
+                    >
+                        <Table
+                            id="mailTable"
+                            items="{/EmailData}"
+                            growing="true"
+                            sticky="ColumnHeaders"
+                            alternateRowColors="true"
+                            enableBusyIndicator="true"
+                        >
+                            <columns>
+                                <Column width="17rem">
+                                    <Text text="From" />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Subject"
+                                        width="20rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Date"
+                                        width="17rem"
+                                    />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Body"
+                                        width="10rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Attachment"
+                                        width="15rem"
+                                    />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="{path: 'sender', formatter: '.formatter.formatEmail'}"
+                                        />
+                                        <Text text="{subject}" />
+
+                                        <Text text="{date}" />
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://show"
+                                                type="Reject"
+                                                press="onPreviewBody"
+                                            />
+                                            <Text
+                                                text="{body}"
+                                                visible="false"
+                                            />
+                                        </HBox>
+
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://attachment"
+                                                type="Accept"
+                                                press="onShowAttachments"
+                                            />
+                                            <VBox>
+                                                <Text
+                                                    text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}"
+                                                />
+                                            </VBox>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+
+                <IconTabFilter
+                    key="support"
+                    text="Support"
+                    icon="sap-icon://customer-and-contacts"
+                    iconColor="Positive"
+                >
+                    <ScrollContainer
+                        height="250px"
+                        width="100%"
+                        vertical="true"
+                        focusable="true"
+                    >
+                        <Table
+                            id="mailTable1"
+                            items="{/EmailData}"
+                            growing="true"
+                            sticky="ColumnHeaders"
+                            alternateRowColors="true"
+                            enableBusyIndicator="true"
+                        >
+                            <columns>
+                                <Column width="17rem">
+                                    <Text text="From" />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Subject"
+                                        width="20rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Date"
+                                        width="17rem"
+                                    />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Body"
+                                        width="10rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Attachment"
+                                        width="15rem"
+                                    />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="{path: 'sender', formatter: '.formatter.formatEmail'}"
+                                        />
+                                        <Text text="{subject}" />
+
+                                        <Text text="{date}" />
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://show"
+                                                type="Reject"
+                                                press="onPreviewBody"
+                                            />
+                                            <Text
+                                                text="{body}"
+                                                visible="false"
+                                            />
+                                        </HBox>
+
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://attachment"
+                                                type="Accept"
+                                                press="onShowAttachments"
+                                            />
+                                            <VBox>
+                                                <Text
+                                                    text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}"
+                                                />
+                                            </VBox>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+                <IconTabFilter
+                    key="others"
+                    text="Other Mails"
+                    icon="sap-icon://email"
+                    iconColor="Positive"
+                    
+                >
+                    <ScrollContainer
+                        height="250px"
+                        width="100%"
+                        vertical="true"
+                        focusable="true"
+                    >
+                        <Table
+                            id="mailTable2"
+                            items="{/EmailData}"
+                            growing="true"
+                            sticky="ColumnHeaders"
+                            alternateRowColors="true"
+                            enableBusyIndicator="true"
+                        >
+                            <columns>
+                                <Column width="17rem">
+                                    <Text text="From" />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Subject"
+                                        width="20rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Date"
+                                        width="17rem"
+                                    />
+                                </Column>
+                                <Column>
+                                    <Text
+                                        text="Body"
+                                        width="10rem"
+                                    />
+                                </Column>
+
+                                <Column>
+                                    <Text
+                                        text="Attachment"
+                                        width="15rem"
+                                    />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="{path: 'sender', formatter: '.formatter.formatEmail'}"
+                                        />
+                                        <Text text="{subject}" />
+
+                                        <Text text="{date}" />
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://show"
+                                                type="Reject"
+                                                press="onPreviewBody"
+                                            />
+                                            <Text
+                                                text="{body}"
+                                                visible="false"
+                                            />
+                                        </HBox>
+
+                                        <HBox>
+                                            <Button
+                                                icon="sap-icon://attachment"
+                                                type="Accept"
+                                                press="onShowAttachments"
+                                            />
+                                            <VBox>
+                                                <Text
+                                                    text="{= ${noOfAttachments} ? '+' + ${noOfAttachments} : '+0'}"
+                                                />
+                                            </VBox>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Panel>
+</mvc:View>
