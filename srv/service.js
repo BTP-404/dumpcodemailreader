@@ -19,7 +19,7 @@ module.exports = cds.service.impl(async function () {
     try {
         const { SelectedMail, User, EmailData, EmailConfiguration, Attachments, Logs, OCRProcess, OcrDocInfo, OcrHeaderFields, OcrLineItems } = this.entities;
         //Authorization Middleware.
-        this.before('*', async(req) => {
+        this.before('*', async (req) => {
             // try {
             //     if (req.event === 'login' || req.event === 'signup') {
             //         return; 
@@ -34,7 +34,7 @@ module.exports = cds.service.impl(async function () {
             //     return req.error(401, "Unauthorized! Invalid token.");
             // }
         })
-        this.on('signup' ,async (req, res) => {
+        this.on('signup', async (req, res) => {
             try {
                 const { userName, emailId, password, isAdmin } = req.data;
                 let foundUser = await cds.run(SELECT.one.from(User).where({ emailId }));
@@ -45,14 +45,14 @@ module.exports = cds.service.impl(async function () {
                     };
                     return req.reply(JSON.stringify(payload));
                 } else {
-                    const hashedPassword = await bcrypt.hash(password, 10); 
+                    const hashedPassword = await bcrypt.hash(password, 10);
                     const newUser = {
                         ...req.data,
-                        password: hashedPassword 
+                        password: hashedPassword
                     };
-        
+
                     await cds.run(INSERT.into(User).entries(newUser));
-        
+
                     let user = await cds.run(SELECT.from(User).where({ emailId }).columns(['userName', 'emailId', 'isAdmin']));
                     let payload = {
                         status: 201,
@@ -75,7 +75,7 @@ module.exports = cds.service.impl(async function () {
             try {
                 const { emailId, password } = req.data;
                 let user = await cds.run(SELECT.one.from(User).where({ emailId }));
-        
+
                 if (!user) {
                     let payload = {
                         status: 404,
@@ -92,7 +92,7 @@ module.exports = cds.service.impl(async function () {
                             status: 200,
                             message: "Login successful!!",
                             data: userWithoutPassword,
-                            token:token
+                            token: token
                         };
                         return req.reply(JSON.stringify(payload));
                     } else {
@@ -112,7 +112,7 @@ module.exports = cds.service.impl(async function () {
                 return req.reply(JSON.stringify(payload));
             }
         });
-        
+
         this.on('cleardb', async (req, res) => {
             try {
                 await cds.run(DELETE.from(SelectedMail));
@@ -217,7 +217,7 @@ module.exports = cds.service.impl(async function () {
         });
 
         this.after('CREATE', SelectedMail, async (req) => {
-            console.log("Requested user:::::",req.incominguser)
+            console.log("Requested user:::::", req.incominguser)
             return new Promise((resolve, reject) => {
                 const imap = new Imap({
                     user: req.useremail,
@@ -235,9 +235,14 @@ module.exports = cds.service.impl(async function () {
                 let emailData_arr = [];
 
                 imap.once("ready", () => {
-                    imap.openBox("INBOX", true, (err, box) => {
+                    imap.openBox("INBOX", { readOnly: false }, (err, box) => {
                         if (err) return reject(err);
+                        //assigning start time.
+                        let utcStartDate = new Date();
+                        const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30 in milliseconds
+                        startTime = new Date(utcStartDate.getTime() + istOffset); //datetime in ist format
                         console.log("START--------------------");
+                        //ALL UNSEEN
                         imap.search(["ALL"], (err, results) => {
                             if (err) return reject(err);
 
@@ -273,6 +278,16 @@ module.exports = cds.service.impl(async function () {
                                         }
                                     }
                                 });
+                                // msg.once('end', () => {
+                                //     imap.addFlags(seqno, '\\Seen', (err) => {
+                                //         if (err) {
+                                //             console.error(`Error marking message ${seqno} as seen:`, err);
+                                //         } else {
+                                //             console.log(`Marked message ${seqno} as seen.`);
+                                //         }
+                                //     });
+                                // })
+
                             });
 
                             f.once("end", async () => {
@@ -290,10 +305,17 @@ module.exports = cds.service.impl(async function () {
 
                 imap.once("end", async () => {
                     console.log("ARRAY->", emailData_arr.length);
+                    //assigning end time.
+                    let utcEndDate = new Date();
+                    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30 in milliseconds
+                    endTime = new Date(utcEndDate.getTime() + istOffset); //datetime in ist format
                     // Log and response handling
                     let log = {
                         ID: uuidv4(),
                         selectedMail: req.useremail,
+                        startTime: startTime.toISOString().split("T")[1].split(".")[0],
+                        endTime: endTime.toISOString().split("T")[1].split(".")[0],
+                        timeTaken: (endTime - startTime) / 1000 + " Seconds",
                         noOfEmailRead: emailData_arr.length,
                         errors: errorLogs
                     };

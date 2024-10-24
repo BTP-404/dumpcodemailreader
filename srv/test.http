@@ -54,7 +54,7 @@ Content-Type: application/json
   "hostName": "imap.gmail.com",
   "connectionSecurity": "SSL",
   "pollingFrequency": 15,
-  "keywords": ["invoice", "Bill"],
+  "keywords": [],
   "markRead": false
 }
 
