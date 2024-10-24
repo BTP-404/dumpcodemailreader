@@ -3,14 +3,13 @@ const Imap = require('imap');
 const { simpleParser } = require("mailparser");
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
+const axios = require('axios')
+const FormData = require("form-data")
+const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path')
 const { executeHttpRequest } = require('@sap-cloud-sdk/http-client')
 const core = require('@sap-cloud-sdk/core')
-const axios = require('axios')
-const FormData = require("form-data")
-
-
 
 let startTime;
 let endTime;
@@ -28,77 +27,90 @@ module.exports = cds.service.impl(async function () {
                     let payload = {
                         status: 409,
                         message: "Conflict..User already exists!!!",
-                    }
-                    return req.reply(JSON.stringify(payload))
-                }
-                else {
-                    await cds.run(INSERT.into(User).entries(req.data));
-                    let user = await cds.run(SELECT.from(User).where({ emailId }));
+                    };
+                    return req.reply(JSON.stringify(payload));
+                } else {
+                    const hashedPassword = await bcrypt.hash(password, 10); 
+                    const newUser = {
+                        ...req.data,
+                        password: hashedPassword 
+                    };
+        
+                    await cds.run(INSERT.into(User).entries(newUser));
+        
+                    let user = await cds.run(SELECT.from(User).where({ emailId }).columns(['userName', 'emailId', 'isAdmin']));
                     let payload = {
                         status: 201,
-                        message: "signup successful!!",
+                        message: "Signup successful!!",
                         data: user
-                    }
-                    return req.reply(JSON.stringify(payload))
+                    };
+                    return req.reply(JSON.stringify(payload));
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
+                let payload = {
+                    status: 500,
+                    message: "Internal Server Error",
+                };
+                return req.reply(JSON.stringify(payload));
             }
+        });
 
-        })
         this.on('login', async (req, res) => {
-
-
             try {
                 const { emailId, password } = req.data;
-                let user = await cds.run(SELECT.one.from(User).where({ emailId: emailId }));
-
+                let user = await cds.run(SELECT.one.from(User).where({ emailId }));
+        
                 if (!user) {
                     let payload = {
                         status: 404,
                         message: "User not found!"
-                    }
+                    };
                     return req.reply(JSON.stringify(payload));
                 } else {
-                    if (password == user.password) {
+                    const isMatch = await bcrypt.compare(password, user.password);
+                    if (isMatch) {
+                        const { password, ...userWithoutPassword } = user;
+                        const token = jwt.sign(userWithoutPassword, "JWT_SECRET");
+
                         let payload = {
                             status: 200,
                             message: "Login successful!!",
-                            data: user
-                        }
-                        return req.reply(JSON.stringify(payload))
+                            data: userWithoutPassword,
+                            token:token
+                        };
+                        return req.reply(JSON.stringify(payload));
                     } else {
-                        // console.log(user)
                         let payload = {
                             status: 400,
                             message: "Unauthorized!!!"
-                        }
+                        };
                         return req.reply(JSON.stringify(payload));
-
                     }
-
                 }
             } catch (error) {
-                console.log(error)
-
+                console.log(error);
+                let payload = {
+                    status: 500,
+                    message: "Internal Server Error",
+                };
+                return req.reply(JSON.stringify(payload));
             }
-
-        })
+        });
+        
         this.on('cleardb', async (req, res) => {
-
             try {
                 await cds.run(DELETE.from(SelectedMail));
                 await cds.run(DELETE.from(EmailData));
                 await cds.run(DELETE.from(OCRProcess));
                 await cds.run(DELETE.from(Logs));
 
-                console.log("ALL DB CLEARED!!!!");
                 let payload = {
                     status: 200,
                     message: "all db cleared!!!"
                 }
                 return req.reply(JSON.stringify(payload));
-    
+
             } catch (error) {
                 console.log("Error from db clear action::", error.message);
             }
@@ -108,10 +120,6 @@ module.exports = cds.service.impl(async function () {
             try {
                 const formData1 = req.formData;
                 const blob1 = Buffer.from(formData1, 'base64');
-                console.log("Blob", blob1)
-
-
-                const api = await cds.connect.to('apiName');
 
                 //step 1 - getting token
                 const token_response = await axios.get('https://920f6c81trial.authentication.us10.hana.ondemand.com/oauth/token?grant_type=client_credentials',
@@ -188,145 +196,103 @@ module.exports = cds.service.impl(async function () {
                     //insert ocr data to DB.
                     insertOcrExtractedData(response3.data, OcrDocInfo, OcrHeaderFields, OcrLineItems);
                 }, 25000);
-
-
-
-
-
             } catch (error) {
                 console.error('Error from OCRProcess :', error.message);
             }
         });
 
+        this.after('CREATE', SelectedMail, async (req) => {
+            return new Promise((resolve, reject) => {
+                const imap = new Imap({
+                    user: req.useremail,
+                    password: req.password,
+                    host: req.host,
+                    port: req.port,
+                    tls: true,
+                    keywords: req.keywords,
+                    markRead: req.markRead,
+                });
 
-        
-      
-        this.after('CREATE', SelectedMail, async (req, res) => {
+                process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+                const Keywords = req.keywords;
+                const lowerCaseKeywords = Keywords.map((str) => str.toLowerCase());
+                let emailData_arr = [];
 
-            const imap = new Imap({
-                user: req.useremail,
-                password: req.password,
-                host: req.host,
-                port: req.port,
-                tls: true,
-                keywords: req.keywords,
-                markRead: req.markRead,
-            });
-            process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-            //......................................................................................
-            //Keywords
-            const Keywords = req.keywords;
-            const lowerCaseKeywords = Keywords.map((str) => str.toLowerCase());
-            //Creating array storage for all mails.
-            let emailData_arr = [];
-            imap.once("ready", () => {
+                imap.once("ready", () => {
+                    imap.openBox("INBOX", true, (err, box) => {
+                        if (err) return reject(err);
+                        console.log("START--------------------");
+                        imap.search(["ALL"], (err, results) => {
+                            if (err) return reject(err);
 
-                imap.openBox("INBOX", true, (err, box) => {
-                    if (err) throw err;
+                            if (results.length === 0) {
+                                console.log("No emails found.");
+                                imap.end();
+                                return resolve({ message: "No emails found." });
+                            }
 
-                    //assigning start time.
-                    let utcStartDate = new Date();
-                    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30 in milliseconds
-                    startTime = new Date(utcStartDate.getTime() + istOffset); //datetime in ist format
+                            const latestResults = results.slice(-100);
+                            const f = imap.fetch(latestResults, { bodies: "" });
 
-                    console.log("START--------------------");
-
-                    // Search for all emails
-                    imap.search(["ALL"], (err, results) => {
-                        if (err) throw err;
-
-                        if (results.length === 0) {
-                            console.log("No emails found.");
-                            imap.end();
-                            return;
-                        }
-
-                        //Pulling latest 100 mails
-                        const latestResults = results.slice(-100);
-                        // Fetching emails
-                        const f = imap.fetch(latestResults, { bodies: "" });
-
-                        f.on("message", async (msg, seqno) => {
-                            //Creating storage for a single mail data and its attachments.
-                            let attachment_arr = [];
-                            let emailData_obj = {};
-                            msg.on("body", async (stream, info) => {
-                                const email = await simpleParser(stream);
-                                if (Keywords.length == 0) {
-                                    //process all mails............
-                                    await createEmailDataPayload(
-                                        email,
-                                        attachment_arr,
-                                        emailData_obj,
-                                        emailData_arr,
-                                        EmailData
-                                    );
-                                }
-                                else {
-                                    //process mails having keywords in their subject
-                                    let presentFlag = false;
-                                    if (email.subject != null) {
-                                        let subject_arr = email.subject.split(" ");
-                                        subject_arr.forEach((ele) => {
-                                            let lowerCaseElement = ele.toLowerCase();
-                                            if (lowerCaseKeywords.includes(lowerCaseElement)) {
-                                                presentFlag = true;
-                                            }
-                                        });
+                            f.on("message", async (msg, seqno) => {
+                                let attachment_arr = [];
+                                let emailData_obj = {};
+                                msg.on("body", async (stream, info) => {
+                                    const email = await simpleParser(stream);
+                                    if (Keywords.length === 0) {
+                                        await createEmailDataPayload(email, attachment_arr, emailData_obj, emailData_arr, EmailData);
+                                    } else {
+                                        let presentFlag = false;
+                                        if (email.subject != null) {
+                                            let subject_arr = email.subject.split(" ");
+                                            subject_arr.forEach((ele) => {
+                                                let lowerCaseElement = ele.toLowerCase();
+                                                if (lowerCaseKeywords.includes(lowerCaseElement)) {
+                                                    presentFlag = true;
+                                                }
+                                            });
+                                        }
+                                        if (presentFlag) {
+                                            await createEmailDataPayload(email, attachment_arr, emailData_obj, emailData_arr, EmailData);
+                                        }
                                     }
-                                    //if presentFlag=true proceed for email processing
-                                    if (presentFlag == true) {
-                                        await createEmailDataPayload(
-                                            email,
-                                            attachment_arr,
-                                            emailData_obj,
-                                            emailData_arr,
-                                            EmailData
-                                        );
-                                    }
-                                }
+                                });
                             });
-                        });
 
-                        f.once("end", async () => {
-
-                            console.log("Done fetching all messages!");
-
-                            imap.end();
+                            f.once("end", async () => {
+                                console.log("Done fetching all messages!");
+                                imap.end();
+                            });
                         });
                     });
                 });
+
+                imap.once("error", (err) => {
+                    console.log(err);
+                    reject(err);
+                });
+
+                imap.once("end", async () => {
+                    console.log("ARRAY->", emailData_arr.length);
+                    // Log and response handling
+                    let log = {
+                        ID: uuidv4(),
+                        selectedMail: req.useremail,
+                        noOfEmailRead: emailData_arr.length,
+                        errors: errorLogs
+                    };
+
+                    await cds.run(INSERT.into(Logs).entries(log));
+                    console.log("Connection ended");
+
+                    // Send the success response
+                    resolve({ message: "Successfully fetched all mails!!", count: emailData_arr.length });
+                });
+                // Start the IMAP connection
+                imap.connect();
             });
+        });
 
-            imap.once("error", (err) => {
-                console.log(err);
-            });
-
-            imap.once("end", async () => {
-                console.log("ARRAY->", emailData_arr.length);
-                //assigning end time.
-                let utcEndDate = new Date();
-                const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30 in milliseconds
-                endTime = new Date(utcEndDate.getTime() + istOffset); //datetime in ist format
-                console.log("TIME TAKEN: ", (endTime - startTime) / 1000, " seconds");
-                //creating payload for logs.
-                let log = {
-                    ID: uuidv4(),
-                    selectedMail: req.useremail,
-                    startTime: startTime.toISOString().split("T")[1].split(".")[0],
-                    endTime: endTime.toISOString().split("T")[1].split(".")[0],
-                    timeTaken: (endTime - startTime) / 1000 + " Seconds",
-                    noOfEmailRead: emailData_arr.length,
-                    errors: errorLogs
-                }
-                await cds.run(INSERT.into(Logs).entries(log));
-                console.log("Connection ended");
-            });
-
-            // Start the IMAP connection
-            imap.connect();
-
-        })
     }
     catch (error) {
         console.log(error);
@@ -368,7 +334,6 @@ async function createEmailDataPayload(
                     };
                     //pushing Attachment object data to Attchment array
                     attachment_arr.push(attachment_obj);
-
                     console.log(`Saved attachment: ${attachment.filename}`);
                 }
             });
@@ -390,7 +355,6 @@ async function createEmailDataPayload(
                 noOfAttachments: attachment_arr.length,
                 attachments: attachment_arr,
             };
-
             // console.log("EMAIL PAYLOAD ->", emailData);
             await cds.run(INSERT.into(EmailData).entries(emailData_obj));
             emailData_arr.push(emailData_obj);
@@ -400,7 +364,6 @@ async function createEmailDataPayload(
         errorLogs.push(error.message);
     }
 }
-
 
 
 //Function for inserting ocr extracted data to DB..................................................
@@ -415,7 +378,6 @@ async function insertOcrExtractedData(ocrData, OcrDocInfo, OcrHeaderFields, OcrL
         fileType: ocrData.fileType,
         receivedDate: ocrData.receivedDate,
     }
-    console.log("OCR DOC INFO------------>", OcrDocInfoPayload);
     await cds.run(INSERT.into(OcrDocInfo).entries(OcrDocInfoPayload));
 
     //OcrHeaderPayload
@@ -434,8 +396,6 @@ async function insertOcrExtractedData(ocrData, OcrDocInfo, OcrHeaderFields, OcrL
             w: header.coordinates.w,
             h: header.coordinates.h,
         }
-
-        console.log(`HEADER ${index}------------>`, headerFieldPayload);
         await cds.run(INSERT.into(OcrHeaderFields).entries(headerFieldPayload));
 
     })
@@ -456,13 +416,7 @@ async function insertOcrExtractedData(ocrData, OcrDocInfo, OcrHeaderFields, OcrL
                 w: ele.coordinates.w,
                 h: ele.coordinates.h,
             }
-
-            console.log(`LINEITEM ${index}------------>`, lineItemPayload);
             await cds.run(INSERT.into(OcrLineItems).entries(lineItemPayload));
-
         });
-
     });
-
-
 }

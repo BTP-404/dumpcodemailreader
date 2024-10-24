@@ -17,6 +17,14 @@ content-Type :application/json
         "password"           : "user@12345",
         "isAdmin"            : true
 }
+###
+POST http://localhost:4004/odata/v4/mail-reader/login
+content-Type :application/json
+
+{
+        "emailId"            : "user@gmail.com",
+        "password"           : "user@12345"
+}
 ####
 POST http://localhost:4004/odata/v4/mail-reader/SelectedMail
 Content-Type: application/json
@@ -49,35 +57,6 @@ Content-Type: application/json
   "markRead": false
 }
 
-
-###
-
-POST http://localhost:4004/odata/v4/mail-reader/login
-content-Type :application/json
-
-{
-        "emailId"            : "user@gmail.com",
-        "password"           : "user@12345"
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###
 
 ###
 Get https://mysubaccount-axm16i2j.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/OCR
