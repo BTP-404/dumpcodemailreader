@@ -18,8 +18,23 @@ let errorLogs = [];
 module.exports = cds.service.impl(async function () {
     try {
         const { SelectedMail, User, EmailData, EmailConfiguration, Attachments, Logs, OCRProcess, OcrDocInfo, OcrHeaderFields, OcrLineItems } = this.entities;
-
-        this.on('signup', async (req, res) => {
+        //Authorization Middleware.
+        this.before('*', async(req) => {
+            // try {
+            //     if (req.event === 'login' || req.event === 'signup') {
+            //         return; 
+            //     }
+            //     const token = req.headers['authorization'];
+            //     if (!token) {
+            //         return req.error(401, "No token provided!");
+            //     }
+            //     const decoded = await jwt.verify(token, "JWT_SECRET");
+            //     req.data.incominguser = decoded; 
+            // } catch (error) {
+            //     return req.error(401, "Unauthorized! Invalid token.");
+            // }
+        })
+        this.on('signup' ,async (req, res) => {
             try {
                 const { userName, emailId, password, isAdmin } = req.data;
                 let foundUser = await cds.run(SELECT.one.from(User).where({ emailId }));
@@ -202,6 +217,7 @@ module.exports = cds.service.impl(async function () {
         });
 
         this.after('CREATE', SelectedMail, async (req) => {
+            console.log("Requested user:::::",req.incominguser)
             return new Promise((resolve, reject) => {
                 const imap = new Imap({
                     user: req.useremail,

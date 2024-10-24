@@ -28,6 +28,7 @@ content-Type :application/json
 ####
 POST http://localhost:4004/odata/v4/mail-reader/SelectedMail
 Content-Type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InVzZXIiLCJlbWFpbElkIjoidXNlckBnbWFpbC5jb20iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3Mjk2NjU4NzF9.-g5SfkHqRlxbDTAtGCI8CJ1xhY0eEt4KWFqpYVZOqe0
 
 {
   
@@ -61,20 +62,7 @@ Content-Type: application/json
 ###
 Get https://mysubaccount-axm16i2j.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/OCR
 
-####
-POST http://localhost:34167/odata/v4/mail-reader/SelectedMail
-Content-Type: application/json
 
-{
-  
- "useremail":"btptesting7@gmail.com",
-    "password":"fibq jben frcm uusi",
-    "host":"imap.gmail.com",
-    "port":993,
-    "tls": true,
-    "keywords":["invoice"],
-    "markRead":true
-}
 
 ###
 DELETE http://localhost:4004/odata/v4/mail-reader/SelectedMail('btptesting7@gmail.com')
