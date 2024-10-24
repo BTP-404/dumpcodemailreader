@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Dialog id="attachmentDialog" title="Attachments" class="sapUiResponsivePadding" draggable="true" resizable="true">
+    <Dialog id="attachmentDialogOCR" title="Select Attachment For OCR Proess" class="sapUiResponsivePadding" draggable="true" resizable="true">
         <content>
             <VBox>
-                <Table id="attachmentTable123" items="{/attachments}">
+                <Table id="attachmentTable1" items="{/attachments}">
                     <columns>
                         <Column>
                             <Text text="File Name" />
@@ -13,6 +13,10 @@
                         <Column>
                             <Text text="Preview" />
                         </Column>
+                        <Column>
+                            <Text text="Action" />
+                        </Column>
+
                     </columns>
                     <items>
                         <ColumnListItem>
@@ -20,9 +24,10 @@
                                 <Text text="{fileName}" />
                                 <Text text="{fileType}" />
                                 <HBox >
-                                <!-- New column with icon and press event for previewing the file -->
-                                <Button  icon="sap-icon://show" type="Attention" press="onPreviewAttachment" tooltip="Preview file" />
-                                
+                                    <Button  icon="sap-icon://show" type="Attention" press="onPreviewAttachment" tooltip="Preview file" />
+                                 </HBox>
+                                 <HBox >
+                                    <Button  icon="sap-icon://step" type="Negative" press="" text="Proceed to OCR" tooltip="Select this for OCR process" />
                                  </HBox>
                             </cells>
                         </ColumnListItem>
@@ -34,7 +39,7 @@
             </VBox>
         </content>
         <endButton>
-            <Button text="Close" press="onCloseAttachmentDialog"/>
+            <Button text="Close" press="onCloseAttachmentDialog1"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

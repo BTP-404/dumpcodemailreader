@@ -95,6 +95,7 @@
                         class="iconConfig"
                         src="sap-icon://receipt"
                         color="#3fb9ec"
+                        press="onSelectInvoice"
                     />
                 </TileContent>
             </GenericTile>

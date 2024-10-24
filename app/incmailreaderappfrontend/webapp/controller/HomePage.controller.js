@@ -67,6 +67,8 @@ sap.ui.define(
         oRouter.navTo('RouteConfiguration')
       },onInboxSelect:function(){
         oRouter.navTo('RouteInbox')
+      },onSelectInvoice:function (){
+        oRouter.navTo('RouteInvoice')
       }
     });
   }

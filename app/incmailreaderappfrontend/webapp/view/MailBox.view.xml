@@ -47,7 +47,7 @@
             text="Home"
             icon="sap-icon://home"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
         <Button
             id="btnEmailConfig"
@@ -55,7 +55,7 @@
             text="Email Configuration"
             icon="sap-icon://action-settings"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
         <Button
             id="btnUserManagement"
@@ -63,7 +63,7 @@
             text="User Management"
             icon="sap-icon://person-placeholder"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
         <Button
             id="btnSelectMail"
@@ -71,7 +71,7 @@
             text="Select Mail"
             icon="sap-icon://accept"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
          <Button
             id="btnMailBox"
@@ -87,7 +87,7 @@
             text="Mail Processor"
             icon="sap-icon://process"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
         <Button
             id="btnInvoiceApp"
@@ -95,7 +95,7 @@
             text="Invoice App"
             icon="sap-icon://receipt"
             press="onButtonPress"
-            type="Emphasized"
+            type="Neutral"
         />
         
         </HBox>
@@ -105,7 +105,7 @@
             class="sapUiMediumMarginEnd"
             text="Logs"
             icon="sap-icon://group-2"
-            press="onButtonPress"
+            press="onButtonPressLog"
             type="Attention"
         /></HBox>
          

@@ -11,7 +11,7 @@ sap.ui.define([
     "use strict";
     var oRouter;
 
-    return Controller.extend("com.incresol.incmailreaderappfrontend.controller.MailProcessor", {
+    return Controller.extend("com.incresol.incmailreaderappfrontend.controller.Invoice", {
         formatter: Formatter,
 
         onInit: function () {
@@ -218,6 +218,33 @@ sap.ui.define([
                 console.error("Error fetching attachments:", oError);
             }.bind(this));
         },
+        onProceedOCR:function(oEvent){
+            var oSelectedItem = oEvent.getSource().getParent();
+            var oContext = oSelectedItem.getBindingContext();
+            var sEmailId = oContext.getProperty("ID");
+
+            sap.ui.core.BusyIndicator.show(0);
+
+            if (!this._oAttachmentDialog1) {
+                this._oAttachmentDialog1 = sap.ui.xmlfragment(
+                    this.getView().getId(),
+                    "com.incresol.incmailreaderappfrontend.fragment.InvoiceOCR",
+                    this
+                );
+                this.getView().addDependent(this._oAttachmentDialog1);
+            }
+
+            this._fetchAttachments(sEmailId).then(function (aAttachments) {
+                var oDialogModel = new JSONModel({ attachments: aAttachments });
+                this._oAttachmentDialog1.setModel(oDialogModel);
+                sap.ui.core.BusyIndicator.hide();
+                this._oAttachmentDialog1.open();
+            }.bind(this)).catch(function (oError) {
+                sap.ui.core.BusyIndicator.hide();
+                MessageToast.show("Error fetching attachments.");
+                console.error("Error fetching attachments:", oError);
+            }.bind(this));
+        },
 
         _fetchAttachments: function (ID) {
             var oModel = this.getView().getModel();
@@ -231,6 +258,10 @@ sap.ui.define([
         onCloseAttachmentDialog: function () {
             if (this._oAttachmentDialog) {
                 this._oAttachmentDialog.close();
+            }
+        },onCloseAttachmentDialog1: function () {
+            if (this._oAttachmentDialog1) {
+                this._oAttachmentDialog1.close();
             }
         },
 

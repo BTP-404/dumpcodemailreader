@@ -69,10 +69,14 @@ sap.ui.define([
                     this.getOwnerComponent().getRouter().navTo("RouteMailProcessor");
                     break;
                 case "btnInvoiceApp":
-                    this.getOwnerComponent().getRouter().navTo("RouteInvoiceApp");
+                    this.getOwnerComponent().getRouter().navTo("RouteInvoice");
                     break;
+               
 
             }
+        },
+        onButtonPressLog : function(){
+         oRouter.navTo('RouteLog');
         },
         onSearch: function (oEvent) {
             const sQuery = oEvent.getParameter("newValue").toLowerCase();
@@ -294,7 +298,7 @@ sap.ui.define([
             }
 
 
-            var oVBox = this._oBodyPreviewDialog.getContent()[0]; // Assumes the first content is the VBox
+            var oVBox = this._oBodyPreviewDialog.getContent()[0]; 
             oVBox.removeAllItems();
 
             var oHtmlContent = "<div>" + oSelectedData.body + "</div>";

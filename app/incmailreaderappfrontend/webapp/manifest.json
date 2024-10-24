@@ -139,6 +139,19 @@
           "target": [
             "TargetMailProcessor"
           ]
+        },{
+          "name": "RouteLog",
+          "pattern": "Logs",
+          "target": [
+            "TargetLog"
+          ]
+        },
+        {
+          "name": "RouteInvoice",
+          "pattern": "Invoice",
+          "target": [
+            "TargetInvoice"
+          ]
         }
       ],
       "targets": {
@@ -185,7 +198,20 @@
           "clearControlAggregation": false,
           "viewId": "MailBox",
           "viewName": "MailBox"
-        },"TargetMailProcessor": {
+        },"TargetLog": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Log",
+          "viewName": "Log"
+        },"TargetInvoice": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Invoice",
+          "viewName": "Invoice"
+        },
+        "TargetMailProcessor": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,

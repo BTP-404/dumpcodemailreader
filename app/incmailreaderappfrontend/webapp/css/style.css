@@ -60,3 +60,11 @@
     font-weight: bold;
 }
 
+.separator {
+    background-color: #0070f2;
+    width: 2px;
+    height: 300px;
+    
+}
+
+

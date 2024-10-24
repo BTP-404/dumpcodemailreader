@@ -1,0 +1,180 @@
+<mvc:View
+    controllerName="com.incresol.incmailreaderappfrontend.controller.Log"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+>
+    <Panel>
+        <Bar
+            id="1headerBar131"
+            class="header"
+        >
+            <contentLeft>
+                <Image
+                    id="_I1DGenImage1131"
+                    src="./images/incresollogo.png"
+                    alt="Logo"
+                    width="115px"
+                    height="35px"
+                />
+            </contentLeft>
+            <contentMiddle>
+                <Text
+                    id="_1IDGenTitle123"
+                    text="Incresol Mail Processor"
+                    class="title"
+                />
+            </contentMiddle>
+            <contentRight>
+                <core:Icon
+                    id="_1DGenIco33n"
+                    src="sap-icon://customer"
+                    color="#08085b"
+                    class="bold-icon"
+                    press="handlePopoverPress"
+                />
+            </contentRight>
+        </Bar>
+    </Panel>
+    
+    <Panel
+        class="sapUiTinyMargin"
+        width="97%"
+    >
+        <HBox justifyContent="Start">
+            <Button
+                id="btnHome"
+                class="sapUiMediumMarginEnd"
+                text="Home"
+                icon="sap-icon://home"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnEmailConfig"
+                class="sapUiMediumMarginEnd"
+                text="Email Configuration"
+                icon="sap-icon://action-settings"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnUserManagement"
+                class="sapUiMediumMarginEnd"
+                text="User Management"
+                icon="sap-icon://person-placeholder"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnSelectMail"
+                class="sapUiMediumMarginEnd"
+                text="Select Mail"
+                icon="sap-icon://accept"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnMailBox"
+                class="sapUiMediumMarginEnd"
+                text="Inbox"
+                icon="sap-icon://email"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnMailProcessor"
+                class="sapUiMediumMarginEnd"
+                text="Mail Processor"
+                icon="sap-icon://process"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+            <Button
+                id="btnInvoiceApp"
+                class="sapUiMediumMarginEnd"
+                text="Invoice App"
+                icon="sap-icon://receipt"
+                press="onButtonPress"
+                type="Emphasized"
+            />
+        </HBox>
+    </Panel>
+    
+    <Panel
+        class="sapUiSmallMargin"
+        width="97%"
+        height="400px"
+    >
+        <HBox width="100%">
+            <VBox width="50%" class="log-section">
+                
+                <Table
+                    id="successLogTable"
+                    items="{/Logs}"
+                    headerText="Success Log"
+                    
+
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                        <Column>
+                            <Text text="Email Read" />
+                        </Column>
+                        <Column>
+                            <Text text="Start Time" />
+                        </Column>
+                        <Column>
+                            <Text text="End Time" />
+                        </Column>
+                        <Column>
+                            <Text text="Time Taken" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{selectedMail}" />
+                                <Text text="{noOfEmailRead}" />
+                                <Text text="{startTime}" />
+                                <Text text="{endTime}" />           
+                                <Text text="{timeTaken}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+
+            <VBox  class="sapUiSmallMarginTop  sapUiLargeTinyBottom separator" /> 
+
+            <VBox width="50%" class="log-section">
+           
+                <Table
+                    id="errorLogTable"
+                    items="{path: '/Logs', parameters: {expand: 'errors'}}"
+                    headerText="Error Log"
+                    
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Error Message" />
+                        </Column>
+                        
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{errors>0}" />
+                                
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </HBox>
+    </Panel>
+</mvc:View>
