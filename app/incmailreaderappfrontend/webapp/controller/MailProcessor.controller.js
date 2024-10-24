@@ -11,11 +11,17 @@ sap.ui.define([
     "use strict";
     var oRouter;
 
-    return Controller.extend("com.incresol.incmailreaderappfrontend.controller.MailBox", {
+    return Controller.extend("com.incresol.incmailreaderappfrontend.controller.MailProcessor", {
         formatter: Formatter,
 
         onInit: function () {
             oRouter = this.getOwnerComponent().getRouter();
+            // const oModel = this.getView().getModel();
+            // console.log(oModel);
+            // this.loadData().then(() => {
+            //     this.onFilterSubject(); // Apply the filter once data is ready
+            // });
+           
         },
 
         handlePopoverPress: function (oEvent) {
@@ -181,9 +187,6 @@ sap.ui.define([
             return { formattedDisplayDate, edmDate };
         }
         ,
-
-
-
         onShowAttachments: function (oEvent) {
             var oSelectedItem = oEvent.getSource().getParent();
             var oContext = oSelectedItem.getBindingContext();
@@ -305,7 +308,31 @@ sap.ui.define([
 
         onCloseDialog: function () {
             this._oBodyPreviewDialog.close();
+        },
+        onFilterSubject: function () {
+         
+
+            const aFilters = [
+                new Filter("subject", FilterOperator.Contains, "bill"),
+                new Filter("subject", FilterOperator.Contains, "invoice"),
+                new Filter("subject", FilterOperator.Contains, "receipt")
+            ];
+            const oFilter = new Filter({
+                filters: aFilters,
+                and: false
+            });
+
+            oBinding.filter([oFilter]);
         }
+
+
+
+
+
+
+
+
+
 
     });
 });

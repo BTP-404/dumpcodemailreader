@@ -31,6 +31,7 @@
             </HBox>
         </VBox>
  </Panel >
+ 
         <!-- Scrollable Table Section -->
         <ScrollContainer height="450px" width="100%" vertical="true" focusable="true">
         <Table id="mailTable" 

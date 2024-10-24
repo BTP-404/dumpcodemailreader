@@ -36,7 +36,7 @@
 
 .title {
     font-size: x-large;
-    color: #08085b;
+    color: #0070f2;
     font-weight: bolder;
 }
 .titleuser{
@@ -53,8 +53,10 @@
     font-size: xx-large;
 }
 
+
 .customHeader {
     background-color: #5eb6df;
     color: white; 
     font-weight: bold;
 }
+
