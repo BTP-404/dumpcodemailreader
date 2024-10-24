@@ -269,7 +269,7 @@
                                                 />
                                             </VBox>
                                         </HBox>
-                                        <Button type="Success" text="OCR" press="onProceedOCR"></Button>
+                                        <Button type="Success" text="Proceed to OCR" press="onProceedOCR"></Button>
                                     </cells>
                                 </ColumnListItem>
                             </items>

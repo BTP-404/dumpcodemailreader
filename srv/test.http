@@ -70,8 +70,16 @@ DELETE http://localhost:4004/odata/v4/mail-reader/SelectedMail('btptesting7@gmai
 
 ###
 
-GET http://localhost:4004/odata/v4/mail-reader/EmailData
+GET  http://localhost:4004/odata/v4/mail-reader/OCRProcess
 
+###
+Content-Type: application/json
+
+{
+       "formData" : "LargeString",
+            "fileType" : "String",
+            "fileName" : "String"
+}
 
 ### 
 GET http://localhost:44595/odata/v4/mail-reader/Test(8a8b3b83-a238-4053-9b54-9de173912491)

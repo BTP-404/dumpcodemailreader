@@ -13,6 +13,9 @@
                         <Column>
                             <Text text="Preview" />
                         </Column>
+                         <Column visible="false">
+                            <Text text="File" />
+                        </Column>
                         <Column>
                             <Text text="Action" />
                         </Column>
@@ -26,16 +29,15 @@
                                 <HBox >
                                     <Button  icon="sap-icon://show" type="Attention" press="onPreviewAttachment" tooltip="Preview file" />
                                  </HBox>
+                                 <Text visible="false" text="{file}"></Text>
                                  <HBox >
-                                    <Button  icon="sap-icon://step" type="Negative" press="" text="Proceed to OCR" tooltip="Select this for OCR process" />
+                                    <Button  icon="sap-icon://step" type="Critical" press="onOCRProcessor" text="Proceed to OCR" tooltip="Select this for OCR process" />
                                  </HBox>
                             </cells>
                         </ColumnListItem>
                     </items>
                 </Table>
 
-                <!-- This container is for file preview -->
-              
             </VBox>
         </content>
         <endButton>

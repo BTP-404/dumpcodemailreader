@@ -358,6 +358,37 @@ sap.ui.define([
             });
 
             oBinding.filter([oFilter]);
+        },onOCRProcessor:function (oEvent){
+            var oItem = oEvent.getSource().getParent();
+            var oContext = oItem.getBindingContext();
+            var oSelectedData = oContext.getObject();
+            // entity OCRProcess {
+            //     key ID       : UUID; // Unique identifier for the record
+            //         formData : LargeString;
+            //         fileType : String;
+            //         fileName : String;
+        
+            // }
+            const payload = {
+                formData: oSelectedData.file,
+                fileType: oSelectedData.fileType,
+                fileName: oSelectedData.fileName
+            };
+            
+            $.ajax({
+                url: "/odata/v4/mail-reader/OCRProcess",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(payload),
+                success:  function(data) {
+                    // Handle successful response
+                    console.log("Data received: ", data);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error("Error occurred: ", status, error);
+                }
+            });
         }
 
     });
